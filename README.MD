@@ -22,7 +22,7 @@ shares and options, borrow or lend out shares, and create an ETF associated with
 multiple accounts. We have not yet decided on how users will be authenticated (we may not do authentication for 
 demonstration purposes).
 
-![ER Diagram](https://drive.google.com/uc?id=13mp4Vg5ptOwLpZy_Iva_3R57xJhTtnDH)
+![ER Diagram](images/ER.png)
 
 Note that Orders has two ISA relationships. Formally: StockOrder AND OptionOrder COVER Orders. Market AND Limit AND 
 Stop COVER Order. To be clear, an order must be exactly two things, one of StockOrder or OptionOrder (but not both) and 
