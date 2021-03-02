@@ -147,17 +147,43 @@ create table contracts
 
 create table option_order
 (
-    strike_price bigint unsigned not null comment 'Measured in hundredths of a cent as is standard.',
-    expiration   datetime        not null
+	strike_price bigint unsigned not null comment 'Measured in hundredths of a cent as is standard.',
+	expiration datetime not null,
+	order_id bigint unsigned not null,
+	constraint option_order_orders_id_fk
+		foreign key (order_id) references orders (id)
+			on update cascade on delete cascade
 );
+
+create unique index option_order_order_id_uindex
+	on option_order (order_id);
+
+
 
 create table `limit`
 (
-    price bigint unsigned not null
+	price bigint unsigned not null,
+	order_id bigint unsigned not null,
+	constraint limit_orders_id_fk
+		foreign key (order_id) references orders (id)
+			on update cascade on delete cascade
 );
+
+create unique index "limit_order_id_uindex"
+	on `limit` (order_id);
+
+
 
 create table stop
 (
-    price       bigint unsigned not null comment 'Measured in hundredths of a cent as is standard.',
-    limit_price bigint unsigned not null comment 'Measured in hundredths of a cent as is standard.'
+	price bigint unsigned not null comment 'Measured in hundredths of a cent as is standard.',
+	limit_price bigint unsigned not null comment 'Measured in hundredths of a cent as is standard.',
+	order_id bigint unsigned not null,
+	constraint stop_orders_id_fk
+		foreign key (order_id) references orders (id)
+			on update cascade on delete cascade
 );
+
+create unique index stop_order_id_uindex
+	on stop (order_id);
+
