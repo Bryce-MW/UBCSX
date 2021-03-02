@@ -64,13 +64,13 @@ create table accounts
 
 create table owns
 (
-    symbol varchar(16)               not null,
-    id     bigint unsigned           not null,
-    units  bigint unsigned default 1 not null,
+    symbol     varchar(16)               not null,
+    account_id bigint unsigned           not null,
+    units      bigint unsigned default 1 not null,
     constraint owns_pk
-        primary key (symbol, id),
+        primary key (symbol, account_id),
     constraint owns_accounts_id_fk
-        foreign key (id) references accounts (id)
+        foreign key (account_id) references accounts (id)
             on update cascade on delete cascade,
     constraint owns_etfs_symbol_fk
         foreign key (symbol) references etfs (symbol)
@@ -147,43 +147,43 @@ create table contracts
 
 create table option_order
 (
-	strike_price bigint unsigned not null comment 'Measured in hundredths of a cent as is standard.',
-	expiration datetime not null,
-	order_id bigint unsigned not null,
-	constraint option_order_orders_id_fk
-		foreign key (order_id) references orders (id)
-			on update cascade on delete cascade
+    strike_price bigint unsigned not null comment 'Measured in hundredths of a cent as is standard.',
+    expiration   datetime        not null,
+    order_id     bigint unsigned not null,
+    constraint option_order_orders_id_fk
+        foreign key (order_id) references orders (id)
+            on update cascade on delete cascade
 );
 
 create unique index option_order_order_id_uindex
-	on option_order (order_id);
+    on option_order (order_id);
 
 
 
 create table `limit`
 (
-	price bigint unsigned not null,
-	order_id bigint unsigned not null,
-	constraint limit_orders_id_fk
-		foreign key (order_id) references orders (id)
-			on update cascade on delete cascade
+    price    bigint unsigned not null,
+    order_id bigint unsigned not null,
+    constraint limit_orders_id_fk
+        foreign key (order_id) references orders (id)
+            on update cascade on delete cascade
 );
 
 create unique index "limit_order_id_uindex"
-	on `limit` (order_id);
+    on `limit` (order_id);
 
 
 
 create table stop
 (
-	price bigint unsigned not null comment 'Measured in hundredths of a cent as is standard.',
-	limit_price bigint unsigned not null comment 'Measured in hundredths of a cent as is standard.',
-	order_id bigint unsigned not null,
-	constraint stop_orders_id_fk
-		foreign key (order_id) references orders (id)
-			on update cascade on delete cascade
+    price       bigint unsigned not null comment 'Measured in hundredths of a cent as is standard.',
+    limit_price bigint unsigned not null comment 'Measured in hundredths of a cent as is standard.',
+    order_id    bigint unsigned not null,
+    constraint stop_orders_id_fk
+        foreign key (order_id) references orders (id)
+            on update cascade on delete cascade
 );
 
 create unique index stop_order_id_uindex
-	on stop (order_id);
+    on stop (order_id);
 
