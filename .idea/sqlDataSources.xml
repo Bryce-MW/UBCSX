@@ -6,6 +6,7 @@
         <State>
           <option name="id" value="a0f66508-c65b-4cac-ab51-a5f8eb16f32d" />
           <option name="name" value="304 Project DDL" />
+          <option name="parent" value="4bf10708-cc45-46c2-be71-ccab72c28b15" />
           <option name="urls">
             <array>
               <option value="file://$PROJECT_DIR$/schema.ddl" />
