@@ -115,8 +115,13 @@ This file provides 5 example tuples for each table created by the schema as desc
 **Example Queries**
 
 **Select:** Select account name and balance from accounts where the owner is equal to the logged-in user.
+
 **Insert:** Insert into ETFs the columns symbol and account ID the values ARKK and 0 respectively.
+
 **Update:** Update stocks, set the last price equal to 1241800 where the symbol is equal to GME.
+
 **Delete:** Delete from orders where now is beyond when it is valid until.
+
 **Projection:** Select id, input date and time, and premium from shares available for lending where the symbol is equal to AMC.
+
 **Join:** Select symbol, last price, name, ceo, and ceo_quote from stocks inner joined with CEOs on the stocks CEO being equal to the CEOs CEO where the symbol is like AAP% where the % could be any characters.
