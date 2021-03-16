@@ -2,7 +2,7 @@
 
 This file provides 5 example tuples for each table created by the schema as described in `schema.ddl`
 
-lendables
+**lendables**
 | id | input_datetime       | premium | symbol | share_id | account_id |
 |----|----------------------|---------|--------|----------|------------|
 | 1  | 2021-03-01  02:30:26 | 0.12    | AAPL   | 1        | 1          |
@@ -11,7 +11,7 @@ lendables
 | 4  | 2021-02-15  06:43:13 | 0.23    | BBY    | 4        | 4          |
 | 5  | 2021-01-24  17:52:52 | 0.01    | AMZN   | 5        | 4          |
 
-lent
+**lent**
 | id | premium | share_id | symbol | by_account_id | to_account_id |
 |----|---------|----------|--------|---------------|---------------|
 | 1  | 0.34    | 1        | AAPL   | 1             | 2             |
@@ -20,7 +20,7 @@ lent
 | 4  | 0.23    | 4        | BBY    | 4             | 1             |
 | 5  | 0.01    | 5        | AMZN   | 4             | 2             |
 
-shares
+**shares**
 | id | symbol | owned_by_account_id |
 |----|--------|---------------------|
 | 1  | AAPL   | 2                   |
@@ -29,7 +29,7 @@ shares
 | 4  | BBY    | 1                   |
 | 5  | AMZN   | 2                   |
 
-accounts
+**accounts**
 | id | balance    | owner    |
 |----|------------|----------|
 | 1  | 1983209    | ahjkd34  |
@@ -38,7 +38,7 @@ accounts
 | 4  | 23904805   | terryl23 |
 | 5  | 1230948233 | d9sk4    |
 
-owns
+**owns**
 | symbol | account_id | units |
 |--------|------------|-------|
 | ARKK   | 1          | 13    |
@@ -47,7 +47,7 @@ owns
 | TQQQ   | 4          | 16    |
 | GLD    | 5          | 58    |
 
-etfs
+**etfs**
 | symbol | controls_account_id |
 |--------|---------------------|
 | ARKK   | 1                   |
@@ -56,7 +56,7 @@ etfs
 | SPY    | 3                   |
 | GLD    | 5                   |
 
-stocks
+**stocks**
 | last_price | name      | symbol |
 |------------|-----------|--------|
 | 142        | Apple     | AAPL   |
@@ -65,7 +65,7 @@ stocks
 | 102        | Best Buy  | BBY    |
 | 204        | Amazon    | AMZN   |
 
-orders
+**orders**
 | id | input_datetime      | valid_until         | quantity | symbol | made_by_account_id |
 |----|---------------------|---------------------|----------|--------|--------------------|
 | 1  | 2021-02-02 15:40:33 | 2021-02-20 23:24:25 | 25       | AAPL   | 1                  |
@@ -74,7 +74,7 @@ orders
 | 4  | 2021-02-01 16:17:47 | 2021-02-10 20:45:52 | 4567     | BBY    | 2                  |
 | 5  | 2021-01-22 19:40:21 | 2021-02-06 08:58:40 | 3        | AMZN   | 5                  |
 
-contracts
+**contracts**
 | id | expiration      | strike_price | symbol | written_by_account_id | owned_by_account_id |
 |----|-----------------|--------------|--------|-----------------------|---------------------|
 | 1  | 1/26/2021 5:53  | 362          | AAPL   | 1                     | 1                   |
@@ -83,7 +83,7 @@ contracts
 | 4  | 1/10/2021 20:19 | 9567         | BBY    | 4                     | 3                   |
 | 5  | 2/1/2021 2:30   | 408          | AMZN   | 5                     | 5                   |
 
-option_order
+**option_order**
 | strike_price | expiration      | order_id |
 |--------------|-----------------|----------|
 | 12345        | 1/4/2021 18:00  | 1        |
@@ -92,7 +92,7 @@ option_order
 | 64342        | 2/2/2021 17:48  | 4        |
 | 8349         | 1/31/2021 4:14  | 5        |
 
-\`limit\`
+**\`limit\`**
 | price | order_id |
 |-------|----------|
 | 142   | 1        |
@@ -101,7 +101,7 @@ option_order
 | 65473 | 4        |
 | 2354  | 5        |
 
-stop
+**stop**
 | price  | limit_price | order_id |
 |--------|-------------|----------|
 | 54336  | 7568        | 1        |
