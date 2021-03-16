@@ -2,7 +2,7 @@
 
 This file provides 5 example tuples for each table created by the schema as described in `schema.ddl`. In addition, simple examples of possible queries of each type are provided in plain English following the example tuples
 
-**__Example Tuples__**
+**Example Tuples**
 
 **lendables**
 | id | input_datetime       | premium | symbol | share_id | account_id |
@@ -112,7 +112,7 @@ This file provides 5 example tuples for each table created by the schema as desc
 | 9657   | 2346        | 4        |
 | 457    | 1509        | 5        |
 
-**__Example Queries__**
+**Example Queries**
 
 **Select:** Select account name and balance from accounts where the owner is equal to the logged-in user.
 **Insert:** Insert into ETFs the columns symbol and account ID the values ARKK and 0 respectively.
