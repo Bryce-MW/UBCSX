@@ -94,7 +94,7 @@ Hello, World!
 
 Welcome! Your CWL username is: yourcwl
 
-Here are the environment variables which are avalible in this script:
+Here are the environment variables which are available in this script:
     PATH: /usr/local/bin:/usr/bin:/bin
     HTTPS: on
     SSL_TLS_SNI: www.students.cs.ubc.ca
