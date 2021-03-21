@@ -41,3 +41,4 @@ Require valid-user
 
 # Allow Python scripts to be run by default
 AddHandler cgi-script .py
+DirectoryIndex index.py

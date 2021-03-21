@@ -86,9 +86,12 @@ be similar in other JetBrains IDEs (I'll probably also use WebStorm).
 * Try visiting `https://www.students.cs.ubc.ca/~{CWL}/304/test.py` to see if it works. Visiting will open a pop-up box
   where you must enter your CWL username and password. This is normal and what will allow the server to authenticate
   users based on their CWL.
-  
-If everything worked, visiting that URL should show you a response similar to the following (all values have been
-altered to be realistic but not my actual values):
+* In Pycharm, under the 304 directory, create a file called `secret.py` and add two lines, `#! /bin/false` and
+  `dbpassword = "a{Student ID}"` where `{Student ID}` is your Student ID. This will be used to connect to the database
+  from the scripts. The scripts can already find out the username easily.
+
+If everything worked, visiting `https://www.students.cs.ubc.ca/~{CWL}/304/test.py` should show you a response similar to
+the following (all values have been altered to be realistic but not my actual values):
 ```
 Hello, World!
 
