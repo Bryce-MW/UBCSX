@@ -1,11 +1,11 @@
 # UBC SX: The UBC Stock Exchange
 
-Note: Some of the following is outdated.
+Note: The following is outdated.
 
-The purpose of this project is to model a stock exchange in a way which ensures that all securities are accounted for. 
-We will be implementing stocks and American-style options which can be held by accounts and traded by putting in 
-market, limit, and stop orders. We also allow for the lending of shares though the lending system is simplified 
-compared to the purchasing system. There is also a simplification of ETFs.
+The purpose of this project is to model a stock exchange in a way which ensures that all securities are accounted for.
+We will be implementing stocks and American-style options which can be held by accounts and traded by putting in market,
+limit, and stop orders. We also allow for the lending of shares though the lending system is simplified compared to the
+purchasing system. There is also a simplification of ETFs.
 
 In this simplification, buying into an ETF deposits money into the account linked with the ETF and entitles you to 
 units of the ETF depending on the percentage of the new total market value which you put in and the current total 
