@@ -110,7 +110,7 @@ Here are the environment variables which are avalible in this script:
     HTTP_SEC_FETCH_DEST: document
     HTTP_ACCEPT_ENCODING: gzip, deflate, br
     HTTP_ACCEPT_LANGUAGE: en-CA,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,en-AU;q=0.6,en-NZ;q=0.5,en-ZA;q=0.4
-    HTTP_COOKIE: ExpirePage=https://mycareers.adm.ubc.ca/psc/erecruit/; PS_LOGINLIST=https://mycareers.adm.ubc.ca/erecruit; SignOnDefault=; PS_TOKENEXPIRE=8_Sep_2019_20:27:15_GMT; PS_DEVICEFEATURES=width:1680 height:1050 pixelratio:2 touch:0 geolocation:1 websockets:1 webworkers:1 datepicker:1 dtpicker:1 timepicker:1 dnd:1 sessionstorage:1 localstorage:1 history:1 canvas:1 svg:1 postmessage:1 hc:0; PHPSESSID=a6s3igiog8gqv4risbsjgsb5tk
+    HTTP_COOKIE: ExpirePage=https://mycareers.adm.ubc.ca/psc/erecruit/; PS_LOGINLIST=https://mycareers.adm.ubc.ca/erecruit; SignOnDefault=; PS_TOKENEXPIRE=8_Sep_2019_20:27:15_GMT; PS_DEVICEFEATURES=width:1680 height:1042 pixelratio:2 touch:0 geolocation:1 websockets:1 webworkers:1 datepicker:1 dtpicker:1 timepicker:1 dnd:1 sessionstorage:1 localstorage:1 history:1 canvas:1 svg:1 postmessage:1 hc:0; PHPSESSID=a6s3igiog8gqv4risbsjgsb5tk
     HTTP_X_ORIGINAL_PROTOCOL: https
     HTTP_X_ORIGINAL_ADDRESS: www.students.cs.ubc.ca:443
     HTTP_X_FORWARDED_HOST: www.students.cs.ubc.ca
