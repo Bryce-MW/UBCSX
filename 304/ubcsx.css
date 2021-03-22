@@ -1,6 +1,22 @@
 :root {
     --gradient: linear-gradient(45deg, #ee6352, rebeccapurple, #ee6352);
     --gradient-continuous: linear-gradient(45deg, #ee6352, rebeccapurple, #ee6352, rebeccapurple);
+    --orange: #ee6352;
+    --light-orange: rgba(237, 99, 81, 0.3);
+    --purple: rebeccapurple;
+    --dark: #444;
+    --gray: #666
+}
+
+::-moz-focus-inner {
+    outline: none;
+}
+
+body {
+    font-family: "Fira Sans", sans-serif;
+    line-height: 1.5em;
+    font-size: 1.3em;
+    color: var(--dark);
 }
 
 body.center-card {
@@ -41,30 +57,80 @@ body.gradient {
     }
 }
 
-.slow {
-
+.submit {
+    padding: 0.7em;
 }
 
 .full-length {
-    width: 100%;
+    width: calc(98% - 0.2em - 0.5em);
+}
+
+.text-input {
+    padding: 0.5em;
+}
+
+.interactive {
+    margin: 0.2em;
     align-self: center;
+    font-size: 100%;
+    border-radius: 0.3em;
+    border: 0.05em solid var(--orange);
+    color: var(--purple);
+    background-color: transparent;
+
+    box-shadow: 0 0 0 0 white,
+    0 0 0 0 var(--purple),
+    0 0 0 0 var(--orange);
+
+    /* This is applied on the way back */
+    transition: box-shadow 200ms cubic-bezier(.68, -0.55, .17, 1);
+}
+
+.submit:active {
+
+}
+
+.text-input::placeholder {
+    color: var(--gray);
+}
+
+
+.interactive:hover {
+    box-shadow: 0 0 0 0 white,
+    0 0 0 0 var(--purple),
+    0 0 0 0.1em var(--orange);
+    transition: box-shadow 200ms cubic-bezier(.68, -0.55, .27, 1.55);
+}
+
+.interactive:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.4em white,
+    0 0 0 0.7em var(--purple),
+    0 0 0 0 var(--orange);
+    /* This is applied on the way out */
+    transition: box-shadow 200ms cubic-bezier(.76, 0, .27, 1.55);
+}
+
+.text-input::selection {
+    outline: 0.05em solid var(--orange);
+    background-color: var(--light-orange);
 }
 
 .br-submit {
     width: 30%;
-    align-self: center;
 }
 
 .center-card {
     display: flex;
     flex-direction: column;
+    gap: 0.4em;
 }
 
 div.center-card {
     background: white;
-    width: 20vw;
+    width: 70ch;
     padding: 3em;
-    box-shadow: 0 0 3em rgba(0, 0, 0, .15);
+    box-shadow: 0 0 3em rgba(0, 0, 0, .2);
 }
 
 .redirect-title {

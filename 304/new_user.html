@@ -7,22 +7,22 @@
     <meta content="UBC Stock Exchange - New User Page" name="description">
     <meta content="Bryce, William, Michelle" name="author">
     <link href="ubcsx.css" rel="stylesheet">
+    <link href="https://code.cdn.mozilla.net/fonts/fira.css" rel="stylesheet">
 </head>
 <body class="center-card gradient">
 <div class="center-card">
-    <form class="center-card" method="POST">
-        Hello {user},<br/>
-        Since this is your first time creating an account, please tell us your name.<br/>
-        <label class="full-length">
-            <input autocomplete="given-name" class="text-input full-length" maxlength="255" minlength="1" name="name"
-                   placeholder="Bryce" required type="text">
-        </label><br/>
-        We also need a nickname for your first account.<br/>
-        <label class="full-length">
-            <input autocomplete="off" class="text-input full-length" maxlength="255" minlength="1" name="account_name"
-                   placeholder="Personal" required type="text">
-        </label><br/>
-        <input class="submit br-submit" type="submit" value="Submit"/>
-    </form>
+    <form class="center-card" id="create-user-form" method="POST"></form>
+    Hello {user},<br/>
+    Since this is your first time creating an account, please tell us your name.<br/>
+    <input aria-label="First name" autocomplete="given-name" class="text-input full-length interactive"
+           form="create-user-form" maxlength="255"
+           minlength="1" name="name" placeholder="Bryce" required type="text"><br/>
+    We also need a nickname for your first account.<br/>
+    <input aria-label="New account nickname" autocomplete="off" class="text-input full-length interactive"
+           form="create-user-form" maxlength="255"
+           minlength="1" name="account_name" placeholder="Personal" required type="text"><br/>
+    <button aria-label="Submit" class="submit br-submit interactive" form="create-user-form" type="submit"
+            value="Submit">Submit
+    </button>
 </div>
 </body>
