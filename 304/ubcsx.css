@@ -36,6 +36,11 @@ body.gradient {
     animation: gradient-animation-continuous 500s infinite linear normal;
 }
 
+/* Turns off the animation when the window is not active since it's kind of CPU intensive. */
+body.gradient:-moz-window-inactive {
+    animation: none;
+}
+
 @keyframes gradient-animation-continuous {
     0% {
         background-position: left
