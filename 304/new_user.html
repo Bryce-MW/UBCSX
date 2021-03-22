@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <title>UBC SX - New User</title>
+    <meta content="UBC Stock Exchange - New User Page" name="description">
+    <meta content="Bryce, William, Michelle" name="author">
+    <link href="ubcsx.css" rel="stylesheet">
+</head>
+<body class="center-card gradient">
+<div class="center-card">
+    <form class="center-card" method="POST">
+        Hello {user},<br/>
+        Since this is your first time creating an account, please tell us your name.<br/>
+        <label class="full-length">
+            <input autocomplete="given-name" class="text-input full-length" maxlength="255" minlength="1" name="name"
+                   placeholder="Bryce" required type="text">
+        </label><br/>
+        We also need a nickname for your first account.<br/>
+        <label class="full-length">
+            <input autocomplete="off" class="text-input full-length" maxlength="255" minlength="1" name="account_name"
+                   placeholder="Personal" required type="text">
+        </label><br/>
+        <input class="submit br-submit" type="submit" value="Submit"/>
+    </form>
+</div>
+</body>

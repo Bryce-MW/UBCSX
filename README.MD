@@ -143,3 +143,28 @@ Here are the environment variables which are available in this script:
     SCRIPT_NAME: /~yourcwl/304/test.py
     LC_CTYPE: C.UTF-8
 ```
+
+## Creating a page
+
+Creating a new page is rather easy. First create a html and python file for the new page. In the html file, you can code
+normally. If possible, I would like to keep most of the css in `ubcsx.css` but you are free to use whatever method you
+would like. If you need anything to be replaced by python, use `{x}` to have that be replaced by the python variable
+`x`. Under your python file, you will probably want to import the following
+`from ubcsx import script_html, user, redirect, post, cursor`. To display your html, add
+`print(script_html.format(**globals()))`. Note that you will likely want your variables to be escaped. You can import
+the `escape` function from `ubcsx` to do this easily. Call `redirect` instead to redirect the user to another page. This
+is useful to run when a post request is made. On post requests, the `post` value is `None` when the request is anything
+other than a post request. Otherwise, `post` is a dictionary where the keys are the post names, and the values are a
+list of the values that the post name was given in the post request. `user` is the user's CWL and cursor is a MySQL
+Connector Cursor object. If you need multiple cursors then you can import `database`. The database has autocommit on by
+default. Even if you turn it on, the database will always commit and exit if python exits normally (does not encounter
+an exception). If python does encounter an exception, it will display it using some very bad code that I wrote. If you
+need access to other environment variables, you can always get them as normal. You can see all the available variables
+by visiting `test.py`.
+
+## Some internal details
+
+The python scripts use the CGI interface. This means that the output includes the headers such as content type which is
+currently output automatically by `ubcsx` when you import it and the html to display. The input is any post data
+formated as `application/www-x-form-urlencoded` which `ubcsx` decodes for you to create the `post`
+dictionary.

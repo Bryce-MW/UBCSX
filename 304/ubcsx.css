@@ -1,0 +1,74 @@
+:root {
+    --gradient: linear-gradient(45deg, #ee6352, rebeccapurple, #ee6352);
+    --gradient-continuous: linear-gradient(45deg, #ee6352, rebeccapurple, #ee6352, rebeccapurple);
+}
+
+body.center-card {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body.gradient {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: 400%;
+    background-image: var(--gradient-continuous);
+    animation: gradient-animation-continuous 500s infinite linear normal;
+}
+
+@keyframes gradient-animation-continuous {
+    0% {
+        background-position: left
+    }
+    100% {
+        background-position: right
+    }
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: left
+    }
+    50% {
+        background-position: right
+    }
+    100% {
+        background-position: left
+    }
+}
+
+.slow {
+
+}
+
+.full-length {
+    width: 100%;
+    align-self: center;
+}
+
+.br-submit {
+    width: 30%;
+    align-self: center;
+}
+
+.center-card {
+    display: flex;
+    flex-direction: column;
+}
+
+div.center-card {
+    background: white;
+    width: 20vw;
+    padding: 3em;
+    box-shadow: 0 0 3em rgba(0, 0, 0, .15);
+}
+
+.redirect-title {
+    display: block;
+    font-size: 5em;
+    font-weight: bold;
+}

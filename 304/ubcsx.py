@@ -1,18 +1,45 @@
 #! /bin/false
 import atexit
-import os
+import os.path
+import urllib.parse
+import sys
 from html import escape
 
 import mysql.connector
 
 from secret import dbpassword
+class HTMLOut:
+    def __init__(self, file_):
+        self._file = file_
+
+    def write(self, data):
+        data = escape(data).replace("\n", "<br/>\n").expandtabs(2)
+        result = '<span style="font-family: &quot;Fira Code&quot;, monospace">'
+        for line in data.splitlines():
+            without_indentation = line.lstrip()
+            indentation_level = len(line) - len(without_indentation)
+            result += f'<span style="margin-left: {indentation_level}ch">' + line.replace("<br/>", "</span><br/>\n")
+        result += "</span>"
+        return self._file.write(result)
+
+    def __getattr__(self, attr):
+         return getattr(self._file, attr)
+sys.stderr = HTMLOut(sys.stdout)
 
 print("Content-type: text/html\n")
 
 dbuser = ""
+script_filename = ""
+user = ""
+script_html = ""
+post = None
 try:
     user = os.environ["REMOTE_USER"]
     dbuser = os.environ["CONTEXT_PREFIX"][2:]
+    script_filename = os.environ["SCRIPT_FILENAME"]
+    if os.environ["REQUEST_METHOD"] == "POST":
+        for line in sys.stdin:
+            post = urllib.parse.parse_qs(line, keep_blank_values=True)
 except KeyError:
     print("<HTML><body>The server must be broken. Check <code>ubcsx.py:12</code></body></HTML>")
     exit()
@@ -36,10 +63,13 @@ def exit_handler():
 
 atexit.register(exit_handler)
 
+script_html_name = ".".join(script_filename.split(".")[:-1]) + ".html"
+if os.path.isfile(script_html_name):
+    script_html = open(script_html_name, mode="r").read()
+
 
 def redirect(url: str):
-    print(f"""<HTML>
-
-<meta http-equiv="Refresh" content="1; url={escape(url)}">
-
-</HTML>""")
+    if os.path.isfile("redirect.html"):
+        print(open("redirect.html", mode="r").read().format(url=escape(url)))
+    else:
+        print(f"""<HTML><head><meta http-equiv="Refresh" content="1; url={escape(url)}"><link href="ubcsx.css" rel="stylesheet"></head><body class="gradient"></HTML>""")
