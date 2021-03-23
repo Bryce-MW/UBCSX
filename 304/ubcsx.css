@@ -1,6 +1,7 @@
 :root {
-    --gradient: linear-gradient(45deg, #ee6352, rebeccapurple, #ee6352);
+    --gradient: linear-gradient(45deg, rebeccapurple, #ee6352);
     --gradient-continuous: linear-gradient(45deg, #ee6352, rebeccapurple, #ee6352, rebeccapurple);
+    --gradient-continuous-back: linear-gradient(45deg, rebeccapurple, #ee6352, rebeccapurple, #ee6352);
     --orange: #ee6352;
     --light-orange: rgba(237, 99, 81, 0.3);
     --purple: rebeccapurple;
@@ -38,7 +39,7 @@ body.gradient {
 
 /* Turns off the animation when the window is not active since it's kind of CPU intensive. */
 body.gradient:-moz-window-inactive {
-    animation: none;
+    animation-play-state: paused
 }
 
 @keyframes gradient-animation-continuous {
@@ -66,6 +67,10 @@ body.gradient:-moz-window-inactive {
     padding: 0.7em;
 }
 
+.submit:active {
+    background: linear-gradient(145deg, #d6594a50, #ff6a5819);
+}
+
 .full-length {
     width: calc(98% - 0.2em - 0.5em);
 }
@@ -82,6 +87,7 @@ body.gradient:-moz-window-inactive {
     border: 0.05em solid var(--orange);
     color: var(--purple);
     background-color: transparent;
+    caret-color: var(--orange);
 
     box-shadow: 0 0 0 0 white,
     0 0 0 0 var(--purple),
@@ -91,8 +97,12 @@ body.gradient:-moz-window-inactive {
     transition: box-shadow 200ms cubic-bezier(.68, -0.55, .17, 1);
 }
 
-.submit:active {
+.interactive:-webkit-autofill {
+    background: linear-gradient(145deg, #d6594a50, #ff6a5819);
+}
 
+.interactive:user-invalid {
+    border-color: red;
 }
 
 .text-input::placeholder {
@@ -140,6 +150,5 @@ div.center-card {
 
 .redirect-title {
     display: block;
-    font-size: 5em;
     font-weight: bold;
 }
