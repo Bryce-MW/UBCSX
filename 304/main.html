@@ -11,12 +11,17 @@
     <link href="https://code.cdn.mozilla.net/fonts/fira.css" rel="stylesheet">
 </head>
 <body>
-<div class="header">
-    <div class="title">UBC<sup>1</sup> Stock Exchange</div>
-    <div class="header-item"><a href="info.py#{current_page}">Info</a></div>
-    <div class="header-item"><a href="settings.py">Settings</a></div>
-    <div class="header-search"></div>
-</div>
+<header class="header">
+    <h1 class="title">UBC<sup>1</sup> Stock Exchange</h1>
+    <nav>
+        <ul>
+            <li class="header-item"><!--suppress HtmlUnknownAnchorTarget -->
+                <a href="info.py#{current_page}">Info</a></li>
+            <li class="header-item"><a href="settings.py">Settings</a></li>
+            <li class="header-search">Search</li>
+        </ul>
+    </nav>
+</header>
 <div class="content"></div>
 <div class="footer"><sup>1</sup>Not endorsed by UBC.</div>
 </body>

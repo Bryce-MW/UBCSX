@@ -33,6 +33,7 @@ script_filename = ""
 user = ""
 script_html = ""
 post = None
+params = None
 try:
     user = os.environ["REMOTE_USER"]
     dbuser = os.environ["CONTEXT_PREFIX"][2:]
@@ -40,6 +41,8 @@ try:
     if os.environ["REQUEST_METHOD"] == "POST":
         for line in sys.stdin:
             post = urllib.parse.parse_qs(line, keep_blank_values=True)
+    if "QUERY_STRING" in os.environ:
+        params = urllib.parse.parse_qs(os.environ["QUERY_STRING"], keep_blank_values=True)
 except KeyError:
     print("<HTML><body>The server must be broken. Check <code>ubcsx.py:12</code></body></HTML>")
     exit()

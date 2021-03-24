@@ -1,12 +1,29 @@
 :root {
-    --gradient: linear-gradient(45deg, rebeccapurple, #ee6352);
-    --gradient-continuous: linear-gradient(45deg, #ee6352, rebeccapurple, #ee6352, rebeccapurple);
-    --gradient-continuous-back: linear-gradient(45deg, rebeccapurple, #ee6352, rebeccapurple, #ee6352);
     --orange: #ee6352;
-    --light-orange: rgba(237, 99, 81, 0.3);
     --purple: rebeccapurple;
-    --dark: #444;
-    --gray: #666
+    --gradient: linear-gradient(45deg, var(--purple), var(--orange));
+    --gradient-continuous: linear-gradient(45deg, var(--orange), var(--purple), var(--orange), var(--purple));
+    --gradient-continuous-back: linear-gradient(45deg, var(--purple), var(--orange), var(--purple), var(--orange));
+    --light-orange: rgba(237, 99, 81, 0.3);
+    --dark: gray(68);
+    --gray: gray(102);
+    --corner-round: 0.3em;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: initial !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+    }
 }
 
 ::-moz-focus-inner {
@@ -16,8 +33,15 @@
 body {
     font-family: "Fira Sans", sans-serif;
     line-height: 1.5em;
-    font-size: 1.3em;
+    font-size: min(1.3rem, min(4vw, 4vh));
     color: var(--dark);
+    min-font-size: 0.5em;
+}
+
+.center-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
 }
 
 body.center-card {
@@ -25,6 +49,16 @@ body.center-card {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+div.center-card {
+    background: white;
+    width: 70%;
+    max-width: 80ch;
+    min-width: 40ch;
+    padding: 3em;
+    box-shadow: 0 0 3em rgba(0, 0, 0, .2);
+    border-radius: var(--corner-round);
 }
 
 body.gradient {
@@ -65,6 +99,11 @@ body.gradient:-moz-window-inactive {
 
 .submit {
     padding: 0.7em;
+    min-width: 10ch;
+}
+
+.br-submit {
+    width: 30%;
 }
 
 .submit:active {
@@ -79,11 +118,15 @@ body.gradient:-moz-window-inactive {
     padding: 0.5em;
 }
 
+.text-input::placeholder {
+    color: var(--gray);
+}
+
 .interactive {
     margin: 0.2em;
     align-self: center;
     font-size: 100%;
-    border-radius: 0.3em;
+    border-radius: var(--corner-round);
     border: 0.05em solid var(--orange);
     color: var(--purple);
     background-color: transparent;
@@ -97,16 +140,15 @@ body.gradient:-moz-window-inactive {
     transition: box-shadow 200ms cubic-bezier(.68, -0.55, .17, 1);
 }
 
-.interactive:-webkit-autofill {
+/*noinspection CssInvalidPseudoSelector*/
+.interactive:-webkit-autofill,
+.interactive:-moz-autofill,
+.interactive:autofill {
     background: linear-gradient(145deg, #d6594a50, #ff6a5819);
 }
 
 .interactive:user-invalid {
     border-color: red;
-}
-
-.text-input::placeholder {
-    color: var(--gray);
 }
 
 
@@ -131,24 +173,59 @@ body.gradient:-moz-window-inactive {
     background-color: var(--light-orange);
 }
 
-.br-submit {
-    width: 30%;
-}
-
-.center-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4em;
-}
-
-div.center-card {
-    background: white;
-    width: 70ch;
-    padding: 3em;
-    box-shadow: 0 0 3em rgba(0, 0, 0, .2);
-}
-
 .redirect-title {
     display: block;
     font-weight: bold;
+}
+
+.header {
+    text-align: center;
+    position: fixed;
+    width: 100%
+}
+
+.title {
+    /*
+    color: transparent;
+    noinspection CssInvalidPropertyValue
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-size: 400%;
+    background-image: var(--gradient-continuous);
+    animation: gradient-animation-continuous 500s infinite linear normal;
+    */
+}
+
+nav {
+    position: absolute;
+    text-align: left;
+    top: 100%;
+    left: 0;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    margin-bottom: 1em;
+    margin-left: 1em;
+}
+
+nav a {
+    color: var(--dark);
+    text-decoration: underline solid var(--orange) 0.07em;
+    font-size: 1.2rem;
+}
+
+nav a:hover {
+    color: transparent;
+    /*noinspection CssInvalidPropertyValue*/
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-size: 400%;
+    background-image: var(--gradient-continuous-back);
+    animation: gradient-animation-continuous 1s infinite linear normal;
 }
