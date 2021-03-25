@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 from ubcsx import script_html, user, redirect, post, cursor, escape
 
-if not post and script_html:
+if not post:
     print(script_html.format(**globals()))
 else:
     try:
@@ -11,6 +11,6 @@ else:
         # Something was not specified for some reason. Consider adding warning
         print(script_html.format(**globals()))
         exit()
-    cursor.execute("INSERT INTO owners (owner, owner_name) VALUES (%(user)s, %(owner_name)s)", {'user':user,'owner_name':owner_name})
-    cursor.execute("INSERT INTO accounts (owner, account_name) VALUES (%(user)s, %(account_name)s)", {'user':user,'account_name':account_name})
+    cursor.execute("INSERT INTO owners (owner, owner_name) VALUES (%(user)s, %(owner_name)s) ON DUPLICATE KEY UPDATE owner_name=%(owner_name)s", {'user':user,'owner_name':owner_name})
+    cursor.execute("INSERT IGNORE INTO accounts (owner, account_name) VALUES (%(user)s, %(account_name)s)", {'user':user,'account_name':account_name})
     redirect(f"main.py?account={escape(account_name)}")

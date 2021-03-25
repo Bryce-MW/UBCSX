@@ -3,7 +3,7 @@ import atexit
 import os.path
 import urllib.parse
 import sys
-from html import escape
+from html import escape, unescape
 
 import mysql.connector
 
@@ -42,10 +42,12 @@ try:
         for line in sys.stdin:
             post = urllib.parse.parse_qs(line, keep_blank_values=True)
     if "QUERY_STRING" in os.environ:
-        params = urllib.parse.parse_qs(os.environ["QUERY_STRING"], keep_blank_values=True)
+        params = {k: unescape(v) for k,v in urllib.parse.parse_qs(os.environ["QUERY_STRING"], keep_blank_values=True).items()}
 except KeyError:
     print("<HTML><body>The server must be broken. Check <code>ubcsx.py:12</code></body></HTML>")
     exit()
+
+current_page = os.environ["SCRIPT_NAME"].split("/")[-1].split(".")[0]
 
 database = None
 cursor = None
