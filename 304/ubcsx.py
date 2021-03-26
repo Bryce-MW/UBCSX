@@ -2,6 +2,7 @@
 import atexit
 import os.path
 import urllib.parse
+from urllib.parse import urlencode
 import sys
 from html import escape, unescape
 

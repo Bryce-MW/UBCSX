@@ -43,6 +43,31 @@
             </ul>
         </div>
     </div>
+    <div class="account-info">
+        <div class="account-value">
+            <span class="account-item">Total equity</span>
+            <span class="account-item">${total_equity:.2f}</span>
+            <span class="account-item">Cash</span>
+            <span class="account-item">${cash:.2f}</span>
+            <span class="account-item">Market value</span>
+            <span class="account-item">${market_value:.2f}</span>
+        </div>
+        <div class="account-orders">
+            <span class="account-item">Open orders</span>
+            <span class="account-item">{open_orders}</span>
+            <span class="account-item">Daily maintenance</span>
+            <span class="account-item">${maintenance:.2f}</span>
+        </div>
+        <div class="account-profit">
+            <span class="account-item">Total profit (loss)</span>
+            <span class="account-item">${total_profit:.2f}</span>
+            <span class="account-item">{total_profit_percent:.2f}%</span>
+            <span class="account-item">Closed profit (loss)</span>
+            <span class="account-item">${profit:.2f}</span>
+            <span class="account-item">{profit_percent:.2f}%</span>
+        </div>
+        <div class="hrule"></div>
+    </div>
 </div>
 <div class="footer" id="disclaimer"><sup>1</sup>Not endorsed by UBC.</div>
 <div class="data">
