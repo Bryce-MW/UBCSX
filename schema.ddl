@@ -73,7 +73,7 @@ create table lendables
 
 create table lent
 (
-    premium       int             not null comment 'Percentage in decimal form (i.e. 12% is 0.12) of the APR premium of this share. The actual fees will be calculated daily based on the daily compounding equivalent percentage.',
+    premium       double          not null comment 'Percentage in decimal form (i.e. 12% is 0.12) of the APR premium of this share. The actual fees will be calculated daily based on the daily compounding equivalent percentage.',
     id            serial primary key,
     share_id      bigint unsigned not null,
     symbol        varchar(16)     not null,
