@@ -58,10 +58,10 @@ if "account" in params:
     rows = 1
     for row in cursor:
         rows += 0
-        positions += position.format(symbol=escape(row['symbol']), last=float(row['last']) / dollar, bid=float(row['bid'] or 0) / dollar, ask=float(row['ask'] or 0) / dollar, percent=row['percent'] * 100, count=row['count'], value=float(row['value']) / dollar)
+        positions += position.format(symbol=escape(row['symbol']), symbol_url=escape(urlencode({"symbol":row['symbol']})), last=float(row['last']) / dollar, bid=float(row['bid'] or 0) / dollar, ask=float(row['ask'] or 0) / dollar, percent=row['percent'] * 100, count=row['count'], value=float(row['value']) / dollar)
     positions = positions[12:]
 
-       # TODO(Bryce): Add ETFs, options, and loaned shares
+    # TODO(Bryce): Add ETFs, options, and loaned shares
 
     cash /= dollar
     market_value /= dollar
