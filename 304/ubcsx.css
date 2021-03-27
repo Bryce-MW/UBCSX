@@ -648,3 +648,17 @@ input.search-bar:focus::-webkit-input-placeholder {
 .table span {
     text-align: right;
 }
+
+.par {
+    width: min(calc(70ch + 8em), 80vw);
+    margin: 2em auto auto;
+
+    border: 0.2em solid var(--orange);
+    border-radius: var(--corner-round);
+    padding: 2.5em 4em 4em;
+}
+
+.par h2 {
+    border-radius: var(--corner-round);
+    padding: 0.2em;
+}
