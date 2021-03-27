@@ -1,14 +1,15 @@
 #! /bin/false
 import atexit
 import os.path
-import urllib.parse
-from urllib.parse import urlencode
 import sys
+import urllib.parse
 from html import escape, unescape
 
 import mysql.connector
 
 from secret import dbpassword
+
+
 class HTMLOut:
     def __init__(self, file_):
         self._file = file_
@@ -24,7 +25,9 @@ class HTMLOut:
         return self._file.write(result)
 
     def __getattr__(self, attr):
-         return getattr(self._file, attr)
+        return getattr(self._file, attr)
+
+
 sys.stderr = HTMLOut(sys.stdout)
 
 print("Content-type: text/html\n")
@@ -43,7 +46,7 @@ try:
         for line in sys.stdin:
             post = urllib.parse.parse_qs(line, keep_blank_values=True)
     if "QUERY_STRING" in os.environ:
-        params = {k: unescape(v) for k,v in urllib.parse.parse_qs(os.environ["QUERY_STRING"], keep_blank_values=True).items()}
+        params = {k: unescape(v) for k, v in urllib.parse.parse_qs(os.environ["QUERY_STRING"], keep_blank_values=True).items()}
 except KeyError:
     print("<HTML><body>The server must be broken. Check <code>ubcsx.py:12</code></body></HTML>")
     exit()
