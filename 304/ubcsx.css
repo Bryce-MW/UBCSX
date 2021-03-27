@@ -5,6 +5,7 @@
     --gradient-continuous: linear-gradient(45deg, var(--orange), var(--purple), var(--orange), var(--purple));
     --gradient-continuous-back: linear-gradient(45deg, var(--purple), var(--orange), var(--purple), var(--orange));
     --light-orange: rgba(237, 99, 81, 0.3);
+    --light-purple: rgba(102, 51, 153, 0.3);
     --dark: #444444;
     --gray: #666666;
     --corner-round: 0.3em;
@@ -451,13 +452,14 @@ input.search-bar:focus::-webkit-input-placeholder {
 
 
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0.5em;
     left: 0.5em;
     font-size: 0.8rem;
     padding-left: 0.5em;
     padding-right: 0.5em;
     border-radius: var(--corner-round);
+    -webkit-text-stroke: 0.03em var(--purple);
 
     transition: bottom 200ms ease-in-out,
     left 200ms ease-in-out;
@@ -471,4 +473,178 @@ input.search-bar:focus::-webkit-input-placeholder {
 .data {
     width: 0;
     height: 0;
+}
+
+.content {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-top {
+    display: flex;
+}
+
+
+.accounts {
+    flex: 0 1 25ch;
+    align-items: flex-start;
+}
+
+.accounts ul {
+    list-style: none;
+    display: inline-block;
+    padding: 1em;
+    width: 100%;
+
+    border-radius: var(--corner-round);
+    border-color: var(--orange);
+    border-width: 0.2em;
+    border-style: solid;
+}
+
+.accounts ul li:first-child {
+    position: relative;
+
+    border-bottom: 0.1em solid var(--purple);
+    margin-bottom: 0.2em;
+}
+
+.accounts ul li:first-child a {
+    margin-left: auto;
+    text-decoration: none;
+}
+
+.accounts ul li a {
+    border-radius: var(--corner-round);
+    padding: 0.1em;
+}
+
+.accounts ul li a[data-selected="True"] {
+    box-shadow: 0 0 0 0.1em var(--purple);
+    display: inline-block;
+    width: 100%;
+}
+
+
+.account-info {
+    flex: 1 3 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-left: 1em;
+    margin-top: 1em;
+    column-gap: 1em;
+}
+
+.account-info .hrule {
+    width: 100%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto 0.1em auto;
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+    align-content: start;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+.account-value {
+    grid-template-rows: repeat(3, auto) [last-line];
+}
+
+.account-orders {
+    grid-template-rows: repeat(2, auto) [last-line];
+}
+
+.account-profit {
+    grid-template-columns: auto 0.1em auto 0.1em auto;
+
+    grid-template-rows: repeat(2, auto) [last-line];
+}
+
+.grid-container span {
+    justify-self: end;
+    text-align: right;
+}
+
+.grid-container span a {
+    text-decoration: none;
+}
+
+.account-orders span.left-align {
+    justify-self: start;
+    text-align: left;
+}
+
+.grid-container div {
+    width: 100%;
+    height: 100%;
+    align-self: start;
+    display: inline-block;
+
+    background: var(--orange);
+    border-radius: var(--corner-round);
+
+    grid-row: 1 / last-line;
+    grid-column: 2 / 3;
+}
+
+.account-profit div:last-of-type {
+    grid-column: 4 / 5;
+}
+
+
+.table {
+    display: grid;
+
+    border-radius: var(--corner-round);
+    border-color: var(--orange);
+    border-width: 0.2em;
+    border-style: solid;
+    padding: 0.5em;
+
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+    justify-items: end;
+
+    font-size: min(1.3rem, 3.5vw);
+}
+
+.main-table {
+    grid-template-columns: auto 0.1em repeat(6, auto) [last-column];
+}
+
+.table div {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    justify-self: normal;
+
+    border-radius: var(--corner-round);
+}
+
+.table div:first-of-type {
+    grid-column: 1 / last-column;
+    grid-row: 2 / 3;
+
+    background-color: var(--orange);
+    width: calc(100% - 1em);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.table div:last-of-type {
+    grid-column: 2 / 3;
+    grid-row: 3 / last-line;
+
+    background-color: var(--orange);
+    height: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.table span {
+    text-align: right;
 }

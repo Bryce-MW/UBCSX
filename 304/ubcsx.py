@@ -49,6 +49,7 @@ except KeyError:
     exit()
 
 current_page = os.environ["SCRIPT_NAME"].split("/")[-1].split(".")[0]
+dollar = 10000
 
 database = None
 cursor = None

@@ -1,11 +1,11 @@
 #! /usr/bin/python3
-from ubcsx import script_html, user, redirect, post, cursor, escape, unescape, urlencode, current_page, params
-from templates import account_dropdown, option_value
+from ubcsx import script_html, user, redirect, post, cursor, escape, unescape, urlencode, current_page, params, dollar
+from templates import account_dropdown, option_value, position
 
 cursor.execute("SELECT account_name FROM accounts WHERE owner=%s", (user,))
 accounts = ""
 for account in cursor:
-    accounts += account_dropdown.format(account=escape(account["account_name"]), account_escaped=urlencode({"account":account["account_name"]}))
+    accounts += account_dropdown.format(account=escape(account["account_name"]), account_escaped=urlencode({"account":account["account_name"]}), selected=account["account_name"]==params["account"][0])
 accounts = accounts[16:]
 
 cursor.execute("SELECT symbol FROM stocks UNION SELECT symbol FROM etfs")
@@ -33,17 +33,42 @@ if "account" in params:
     open_orders = cursor.fetchone()['count']
     cursor.execute("SELECT SUM((lent.premium / 365) * stocks.last_price) AS value FROM lent INNER JOIN stocks ON lent.symbol=stocks.symbol INNER JOIN accounts ON lent.to_account_id=accounts.id WHERE owner=%s AND account_name=%s", (user,account_name))
     maintenance = cursor.fetchone()['value'] or 0
-    total_profit = cash - 1000000
-    total_profit_percent = total_profit / 1000000
-    profit = total_equity - 1000000
-    profit_percent = profit / 1000000
+    total_profit = cash - 100*dollar
+    total_profit_percent = total_profit / (100*dollar)
+    profit = total_equity - 100*dollar
+    profit_percent = profit / (100*dollar)
 
-    cash /= 10000
-    market_value /= 10000
-    total_equity /= 10000
-    maintenance /= 10000
-    total_profit /= 10000
-    profit /= 10000
+    positions = ""
+    # bid, ask
+    cursor.execute("""
+        SELECT a.symbol AS symbol, last, bid, ask, count, value, percent FROM
+            (SELECT shares.symbol AS symbol, stocks.last_price AS last, COUNT(*) AS count, COUNT(*)*stocks.last_price AS value, COUNT(*)*stocks.last_price/%s AS percent FROM shares INNER JOIN stocks on shares.symbol=stocks.symbol INNER JOIN accounts on shares.owned_by_account_id=accounts.id WHERE owner=%s AND account_name=%s GROUP BY symbol) AS a
+        INNER JOIN
+            (SELECT bid, ask, bid_table.symbol FROM
+                (SELECT max(price) AS bid, symbol FROM `limit` INNER JOIN orders ON `limit`.order_id=orders.id WHERE orders.quantity>0 GROUP BY symbol) AS bid_table
+            LEFT JOIN
+                (SELECT min(price) AS ask, symbol FROM `limit` INNER JOIN orders ON `limit`.order_id=orders.id WHERE orders.quantity<0 GROUP BY symbol) AS ask_table
+            ON bid_table.symbol=ask_table.symbol UNION
+            SELECT bid, ask, ask_table.symbol AS symbol FROM
+                (SELECT max(price) AS bid, symbol FROM `limit` INNER JOIN orders ON `limit`.order_id=orders.id WHERE orders.quantity>0 GROUP BY symbol) AS bid_table
+            RIGHT JOIN
+                (SELECT min(price) AS ask, symbol FROM `limit` INNER JOIN orders ON `limit`.order_id=orders.id WHERE orders.quantity<0 GROUP BY symbol) AS ask_table
+            ON bid_table.symbol=ask_table.symbol) AS b
+        ON a.symbol=b.symbol""", (market_value,user,account_name))
+    rows = 1
+    for row in cursor:
+        rows += 0
+        positions += position.format(symbol=escape(row['symbol']), last=float(row['last']) / dollar, bid=float(row['bid'] or 0) / dollar, ask=float(row['ask'] or 0) / dollar, percent=row['percent'] * 100, count=row['count'], value=float(row['value']) / dollar)
+    positions = positions[12:]
+
+       # TODO(Bryce): Add ETFs, options, and loaned shares
+
+    cash /= dollar
+    market_value /= dollar
+    total_equity /= dollar
+    maintenance /= dollar
+    total_profit /= dollar
+    profit /= dollar
 else:
     cash = 0
     market_value = 0
@@ -54,6 +79,5 @@ else:
     total_profit_percent = 0
     profit = 0
     profit_percent = 0
-
 
 print(script_html.format(**globals()))

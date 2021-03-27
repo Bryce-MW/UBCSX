@@ -32,41 +32,61 @@
 </header>
 <div class="hrule"></div>
 <div class="content">
-    <div class="accounts">
-        <div class="account-selector"></div>
-        <div class="account">
+    <div class="content-top">
+        <div class="accounts">
             <ul>
                 <li><span>Accounts</span>
-                    <button>+</button>
+                    <a href="add-account.py">+</a>
                 </li>
                 {accounts}
             </ul>
         </div>
+        <div class="account-info">
+            <div class="account-value grid-container">
+                <span class="account-item">Total equity</span>
+                <span class="account-item">${total_equity:.2f}</span>
+                <span class="account-item">Cash</span>
+                <span class="account-item">${cash:.2f}</span>
+                <span class="account-item">Market value</span>
+                <span class="account-item">${market_value:.2f}</span>
+                <div></div>
+            </div>
+            <div class="account-orders grid-container">
+                <span class="account-item"><a href="orders.py">Open orders</a></span>
+                <span class="account-item left-align"><a href="orders.py">{open_orders}</a></span>
+                <span class="account-item">Daily maintenance</span>
+                <span class="account-item">${maintenance:.2f}</span>
+                <div></div>
+            </div>
+            <div class="account-profit grid-container">
+                <span class="account-item">Total profit (loss)</span>
+                <span class="account-item">${total_profit:.2f}</span>
+                <span class="account-item">{total_profit_percent:.2f}%</span>
+                <span class="account-item">Closed profit (loss)</span>
+                <span class="account-item">${profit:.2f}</span>
+                <span class="account-item">{profit_percent:.2f}%</span>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="hrule"></div>
+        </div>
     </div>
-    <div class="account-info">
-        <div class="account-value">
-            <span class="account-item">Total equity</span>
-            <span class="account-item">${total_equity:.2f}</span>
-            <span class="account-item">Cash</span>
-            <span class="account-item">${cash:.2f}</span>
-            <span class="account-item">Market value</span>
-            <span class="account-item">${market_value:.2f}</span>
+    <div class="content-table">
+        <h2>Your Positions</h2>
+        <div class="table main-table" style="grid-template-rows: 1fr 0.1em repeat({rows}, 1fr) [last-line]">
+            <span class="head">Symbol</span>
+            <span class="head">Last</span>
+            <span class="head">Bid</span>
+            <span class="head">Ask</span>
+            <span class="head">Market Value</span>
+            <span class="head">Percent Portfolio</span>
+            <span class="head">Count</span>
+            <div></div>
+            <div></div>
+            <div></div>
+
+            {positions}
         </div>
-        <div class="account-orders">
-            <span class="account-item">Open orders</span>
-            <span class="account-item">{open_orders}</span>
-            <span class="account-item">Daily maintenance</span>
-            <span class="account-item">${maintenance:.2f}</span>
-        </div>
-        <div class="account-profit">
-            <span class="account-item">Total profit (loss)</span>
-            <span class="account-item">${total_profit:.2f}</span>
-            <span class="account-item">{total_profit_percent:.2f}%</span>
-            <span class="account-item">Closed profit (loss)</span>
-            <span class="account-item">${profit:.2f}</span>
-            <span class="account-item">{profit_percent:.2f}%</span>
-        </div>
-        <div class="hrule"></div>
     </div>
 </div>
 <div class="footer" id="disclaimer"><sup>1</sup>Not endorsed by UBC.</div>
