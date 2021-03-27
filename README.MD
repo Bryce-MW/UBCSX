@@ -68,7 +68,7 @@ be similar in other JetBrains IDEs (I'll probably also use WebStorm).
       It's the same password for logging into the server since that is what we are doing. I would select to save the
       password.
     * Click Test Connection to make sure that it works.
-* Under Root Path, enter `/users/{L}/{CWL}/public_html/304` where `{CWL}` is your UBC CWL and `{L}` is the first
+* Under Root Path, enter `/home/{L}/{CWL}/public_html/304` where `{CWL}` is your UBC CWL and `{L}` is the first
   letter of your CWL.
 * Under URL, enter `https://www.students.cs.ubc.ca/~{CWL}/304/`.
 * Go to the Mappings tab.
