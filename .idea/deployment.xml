@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="UBC CS Server" uploadOnCheckin="1b9af9a0-d32d-4e5f-979a-efedcb1b816a" filePermissions="493" folderPermissions="493" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="UBC CS Server">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$/304" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myUploadOnCheckinName" value="UBC CS Server" />
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>

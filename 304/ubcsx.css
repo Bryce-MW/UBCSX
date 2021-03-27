@@ -1,0 +1,650 @@
+:root {
+    --orange: #ee6352;
+    --purple: rebeccapurple;
+    --gradient: linear-gradient(45deg, var(--purple), var(--orange));
+    --gradient-continuous: linear-gradient(45deg, var(--orange), var(--purple), var(--orange), var(--purple));
+    --gradient-continuous-back: linear-gradient(45deg, var(--purple), var(--orange), var(--purple), var(--orange));
+    --light-orange: rgba(237, 99, 81, 0.3);
+    --light-purple: rgba(102, 51, 153, 0.3);
+    --dark: #444444;
+    --gray: #666666;
+    --corner-round: 0.3em;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-delay: -1ms !important;
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        background-attachment: initial !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+    }
+}
+
+::-moz-focus-inner {
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* Turns off animation when the window is not active since it's kind of CPU intensive. */
+:-moz-window-inactive {
+    animation-play-state: paused
+}
+
+a {
+    color: var(--dark);
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-color: var(--orange);
+    /*noinspection CssUnknownProperty*/
+    text-decoration-thickness: 0.07em;
+    text-decoration-width: 0.07em;
+
+    box-shadow: 0 0 0 0 white,
+    0 0 0 0 var(--purple);
+    transition: box-shadow 200ms cubic-bezier(.68, -0.55, .27, 1.55),
+    border-radius 0s step-end 200ms;
+}
+
+a:focus,
+a:focus-visible {
+    outline: none;
+    border-radius: var(--corner-round);
+    box-shadow: 0 0 0 0.4em white,
+    0 0 0 0.7em var(--purple);
+    /* This is applied on the way out */
+    transition: box-shadow 200ms cubic-bezier(.76, 0, .27, 1.55),
+    border-radius 0s step-end 0s;
+}
+
+a:hover {
+    color: transparent;
+    -webkit-background-clip: text;
+    /*noinspection CssInvalidPropertyValue*/
+    background-clip: text;
+    background-size: 400%;
+    background-image: var(--gradient-continuous-back);
+    animation: gradient-animation-continuous 1s infinite linear normal;
+}
+
+:target {
+    outline: none;
+    box-shadow: 0 0 0 0.1em white,
+    0 0 0 0.4em var(--purple);
+    /* This is applied on the way out */
+    transition: box-shadow 200ms cubic-bezier(.76, 0, .27, 1.55);
+}
+
+body {
+    font-family: "Fira Sans", sans-serif;
+    line-height: 1.5em;
+    font-size: min(1.3rem, min(4vw, 4vh));
+    color: var(--dark);
+}
+
+
+.center-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+}
+
+body.center-card {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.center-card {
+    background: white;
+    width: 70%;
+    max-width: 80ch;
+    min-width: 40ch;
+    padding: 3em;
+    box-shadow: 0 0 3em rgba(0, 0, 0, .2);
+    border-radius: var(--corner-round);
+}
+
+
+body.gradient {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: 400%;
+    background-image: var(--gradient-continuous);
+    animation: gradient-animation-continuous 500s infinite linear normal;
+}
+
+@keyframes gradient-animation-continuous {
+    0% {
+        background-position: left
+    }
+    100% {
+        background-position: right
+    }
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: left
+    }
+    50% {
+        background-position: right
+    }
+    100% {
+        background-position: left
+    }
+}
+
+
+.submit {
+    padding: 0.7em;
+    min-width: 10ch;
+}
+
+.br-submit {
+    width: 30%;
+}
+
+.submit:active {
+    background: linear-gradient(145deg, #d6594a50, #ff6a5819);
+}
+
+
+.full-length {
+    width: calc(98% - 0.2em - 0.5em);
+}
+
+
+.text-input {
+    padding: 0.5em;
+}
+
+.text-input::selection {
+    outline: 0.05em solid var(--orange);
+    background-color: var(--light-orange);
+}
+
+.text-input::placeholder,
+.text-input::-webkit-input-placeholder {
+    color: var(--purple);
+    opacity: 0.5;
+}
+
+
+.interactive {
+    margin: 0.2em;
+    align-self: center;
+    font-size: 100%;
+    border-radius: var(--corner-round);
+    border: 0.05em solid var(--orange);
+    color: var(--purple);
+    background-color: transparent;
+    caret-color: var(--orange);
+
+    box-shadow: 0 0 0 0 white,
+    0 0 0 0 var(--purple),
+    0 0 0 0 var(--orange);
+
+    /* This is applied on the way back */
+    transition: box-shadow 200ms cubic-bezier(.68, -0.55, .17, 1);
+}
+
+/*noinspection CssInvalidPseudoSelector*/
+.interactive:-webkit-autofill,
+.interactive:-moz-autofill,
+.interactive:autofill {
+    background: linear-gradient(145deg, #d6594a50, #ff6a5819);
+}
+
+.interactive:user-invalid {
+    border-color: red;
+}
+
+
+.interactive:hover {
+    box-shadow: 0 0 0 0 white,
+    0 0 0 0 var(--purple),
+    0 0 0 0.1em var(--orange);
+    transition: box-shadow 200ms cubic-bezier(.68, -0.55, .27, 1.55);
+}
+
+.interactive:focus,
+.interactive:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 0.4em white,
+    0 0 0 0.7em var(--purple),
+    0 0 0 0 var(--orange);
+    /* This is applied on the way out */
+    transition: box-shadow 200ms cubic-bezier(.76, 0, .27, 1.55);
+}
+
+
+.redirect-title {
+    display: block;
+    font-weight: bold;
+}
+
+
+.header {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10% minmax(10ch, 1fr) auto 10%;
+}
+
+
+.title {
+    grid-column: 2 / span 1;
+}
+
+.title sup.invisible {
+    opacity: 0;
+}
+
+.title sup a {
+    text-decoration: none;
+
+    -webkit-background-clip: text;
+    /*noinspection CssInvalidPropertyValue*/
+    background-clip: text;
+    background-size: 400%;
+
+    display: inline-block;
+    width: 2ch;
+    position: absolute;
+    z-index: 100;
+}
+
+.title sup a:hover {
+    color: transparent;
+    background-image: var(--gradient-continuous-back);
+    animation: gradient-animation-continuous 1s infinite linear normal;
+}
+
+
+nav {
+    grid-column: 3 / span 1;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav li {
+    margin-bottom: 0;
+    margin-left: min(3em, 5vw);
+    font-size: min(2rem, 3vw);
+
+    border-radius: var(--corner-round);
+    box-shadow: 0 0 0 0 white,
+    0 0 0 0 var(--purple),
+    0 0 0 0 var(--orange);
+    transition: box-shadow 200ms cubic-bezier(.68, -0.55, .27, 1.55);
+}
+
+nav li:focus,
+nav li:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 0.4em white,
+    0 0 0 0.7em var(--purple),
+    0 0 0 0 var(--orange);
+    /* This is applied on the way out */
+    transition: box-shadow 200ms cubic-bezier(.76, 0, .27, 1.55);
+}
+
+
+div.search-bar {
+    --size: 3em;
+
+    font-size: min(1.5rem, 3vw);
+    border: solid 0.2em var(--orange);
+    border-radius: max(100vh, 100vw);
+    display: flex;
+
+    width: var(--size);
+    height: var(--size);
+    position: relative;
+    transition: width 600ms cubic-bezier(.68, -0.2, .27, 1);
+}
+
+div.search-bar:focus-within {
+    transition: width 600ms cubic-bezier(.68, 0, .27, 1.2);
+    width: min(25ch, 30vw);
+}
+
+
+input.search-bar {
+    font-size: 100%;
+    flex: 1 1;
+    border: none;
+    padding: 0 0.5em;
+
+    width: var(--size);
+    background: transparent;
+    opacity: 0.7;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    line-height: calc(var(--size) - 0.4em);
+
+    z-index: 100;
+
+    color: transparent;
+
+    cursor: pointer;
+}
+
+input.search-bar::placeholder,
+input.search-bar::-webkit-input-placeholder {
+    opacity: 0;
+}
+
+input.search-bar:focus {
+    outline: 0;
+    width: calc(100% - var(--size));
+
+    color: var(--purple);
+
+    cursor: text;
+}
+
+input.search-bar:focus::placeholder,
+input.search-bar:focus::-webkit-input-placeholder {
+    opacity: 0.5;
+}
+
+
+.search-button {
+    font-size: 50%;
+    padding-left: 1.2em;
+    padding-bottom: 2.7em;
+
+    flex: 0 0 calc(var(--size) * 2 - 0.7em);
+    display: flex;
+    align-items: center;
+    align-content: center;
+
+    margin-left: auto;
+    border: none;
+    border-radius: 100%;
+    background: linear-gradient(145deg, #d6594a50, #ff6a5819);
+
+    box-shadow: 0 0 0 0 white,
+    0 0 0 0 var(--purple),
+    0 0 0 0 var(--orange);
+
+    /* This is applied on the way back */
+    transition: box-shadow 200ms cubic-bezier(.68, -0.55, .17, 1);
+}
+
+.search-button:hover {
+    box-shadow: 0 0 0 0 white,
+    0 0 0 0 var(--purple),
+    0 0 0 0.1em var(--orange);
+    transition: box-shadow 200ms cubic-bezier(.68, -0.55, .27, 1.55);
+}
+
+.search-button:focus,
+.search-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 0.4em white,
+    0 0 0 0.7em var(--purple),
+    0 0 0 0 var(--orange);
+    /* This is applied on the way out */
+    transition: box-shadow 200ms cubic-bezier(.76, 0, .27, 1.55);
+}
+
+.search-button::before {
+    content: "";
+    display: inline-block;
+    width: 0.5em;
+    height: 3em;
+    border-radius: max(100vh, 100vw);
+    background-color: black;
+    transform: rotate(45deg) translate(calc(0.5em * 1.4), calc(3em / 2 - 0.6em));
+    position: absolute;
+    margin-left: 0.8em;
+    margin-bottom: -1.8em;
+}
+
+.search-button::after {
+    content: "";
+    display: inline-block;
+    border-radius: 100%;
+    width: 0.01em;
+    height: 0.01em;
+    box-shadow: 0 0 0 0.8em white, 0 0 0 1.2em black;
+    position: absolute;
+    margin: 1.9em 4em 0.5em 2.3em;
+}
+
+
+.hrule {
+    background-color: var(--orange);
+    height: 0.05em;
+    width: 90%;
+    margin: auto;
+    border-radius: var(--corner-round);
+}
+
+
+.footer {
+    position: fixed;
+    bottom: 0.5em;
+    left: 0.5em;
+    font-size: 0.8rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    border-radius: var(--corner-round);
+    -webkit-text-stroke: 0.03em var(--purple);
+
+    transition: bottom 200ms ease-in-out,
+    left 200ms ease-in-out;
+}
+
+.footer:target {
+    bottom: 1em;
+    left: 1em;
+}
+
+.data {
+    width: 0;
+    height: 0;
+}
+
+.content {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-top {
+    display: flex;
+}
+
+
+.accounts {
+    flex: 0 1 25ch;
+    align-items: flex-start;
+}
+
+.accounts ul {
+    list-style: none;
+    display: inline-block;
+    padding: 1em;
+    width: 100%;
+
+    border-radius: var(--corner-round);
+    border-color: var(--orange);
+    border-width: 0.2em;
+    border-style: solid;
+}
+
+.accounts ul li:first-child {
+    position: relative;
+
+    border-bottom: 0.1em solid var(--purple);
+    margin-bottom: 0.2em;
+}
+
+.accounts ul li:first-child a {
+    margin-left: auto;
+    text-decoration: none;
+}
+
+.accounts ul li a {
+    border-radius: var(--corner-round);
+    padding: 0.1em;
+}
+
+.accounts ul li a[data-selected="True"] {
+    box-shadow: 0 0 0 0.1em var(--purple);
+    display: inline-block;
+    width: 100%;
+}
+
+
+.account-info {
+    flex: 1 3 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-left: 1em;
+    margin-top: 1em;
+    column-gap: 1em;
+}
+
+.account-info .hrule {
+    width: 100%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto 0.1em auto;
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+    align-content: start;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+.account-value {
+    grid-template-rows: repeat(3, auto) [last-line];
+}
+
+.account-orders {
+    grid-template-rows: repeat(2, auto) [last-line];
+}
+
+.account-profit {
+    grid-template-columns: auto 0.1em auto 0.1em auto;
+
+    grid-template-rows: repeat(2, auto) [last-line];
+}
+
+.grid-container span {
+    justify-self: end;
+    text-align: right;
+}
+
+.grid-container span a {
+    text-decoration: none;
+}
+
+.account-orders span.left-align {
+    justify-self: start;
+    text-align: left;
+}
+
+.grid-container div {
+    width: 100%;
+    height: 100%;
+    align-self: start;
+    display: inline-block;
+
+    background: var(--orange);
+    border-radius: var(--corner-round);
+
+    grid-row: 1 / last-line;
+    grid-column: 2 / 3;
+}
+
+.account-profit div:last-of-type {
+    grid-column: 4 / 5;
+}
+
+
+.table {
+    display: grid;
+
+    border-radius: var(--corner-round);
+    border-color: var(--orange);
+    border-width: 0.2em;
+    border-style: solid;
+    padding: 0.5em;
+
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+    justify-items: end;
+
+    font-size: min(1.3rem, 3.5vw);
+}
+
+.main-table {
+    grid-template-columns: auto 0.1em repeat(6, auto) [last-column];
+}
+
+.table div {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    justify-self: normal;
+
+    border-radius: var(--corner-round);
+}
+
+.table div:first-of-type {
+    grid-column: 1 / last-column;
+    grid-row: 2 / 3;
+
+    background-color: var(--orange);
+    width: calc(100% - 1em);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.table div:last-of-type {
+    grid-column: 2 / 3;
+    grid-row: 3 / last-line;
+
+    background-color: var(--orange);
+    height: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.table span {
+    text-align: right;
+}

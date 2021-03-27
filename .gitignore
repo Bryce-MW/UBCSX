@@ -2,3 +2,9 @@
 .localized
 
 __pycache__/
+
+.idea/sshConfigs.xml
+.idea/webServers.xml
+.idea/dataSources.xml
+
+304/secret.py

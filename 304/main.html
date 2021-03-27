@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>UBC SX - Account</title>
+    <meta content="UBC Stock Exchange - Main Account Page" name="description">
+    <meta content="Bryce, William, Michelle" name="author">
+    <link href="ubcsx.css" rel="stylesheet">
+    <link href="https://code.cdn.mozilla.net/fonts/fira.css" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+    <h1 class="title">UBC<sup><a href="#disclaimer" tabindex="1">1</a></sup><sup class="invisible">1</sup> Stock
+        Exchange</h1>
+    <nav>
+        <ul>
+            <li class="header-item"><!--suppress HtmlUnknownAnchorTarget -->
+                <a href="info.py#{current_page}" tabindex="2">Info</a></li>
+            <li class="header-item"><a href="settings.py" tabindex="3">Settings</a></li>
+            <li class="header-search">
+                <form action="search.py" id="search" method="GET"></form>
+                <div class="search-bar">
+                    <input aria-label="Search" autocomplete="off" class="search-bar" form="search" list="symbols-names"
+                           name="q" placeholder="Symbol / Name" type="search"/>
+                    <button aria-label="Submit Search" class="search-button" form="search"></button>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="hrule"></div>
+<div class="content">
+    <div class="content-top">
+        <div class="accounts">
+            <ul>
+                <li><span>Accounts</span>
+                    <a href="add-account.py">+</a>
+                </li>
+                {accounts}
+            </ul>
+        </div>
+        <div class="account-info">
+            <div class="account-value grid-container">
+                <span class="account-item">Total equity</span>
+                <span class="account-item">${total_equity:.2f}</span>
+                <span class="account-item">Cash</span>
+                <span class="account-item">${cash:.2f}</span>
+                <span class="account-item">Market value</span>
+                <span class="account-item">${market_value:.2f}</span>
+                <div></div>
+            </div>
+            <div class="account-orders grid-container">
+                <span class="account-item"><a href="orders.py">Open orders</a></span>
+                <span class="account-item left-align"><a href="orders.py">{open_orders}</a></span>
+                <span class="account-item">Daily maintenance</span>
+                <span class="account-item">${maintenance:.2f}</span>
+                <div></div>
+            </div>
+            <div class="account-profit grid-container">
+                <span class="account-item">Total profit (loss)</span>
+                <span class="account-item">${total_profit:.2f}</span>
+                <span class="account-item">{total_profit_percent:.2f}%</span>
+                <span class="account-item">Closed profit (loss)</span>
+                <span class="account-item">${profit:.2f}</span>
+                <span class="account-item">{profit_percent:.2f}%</span>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="hrule"></div>
+        </div>
+    </div>
+    <div class="content-table">
+        <h2>Your Positions</h2>
+        <div class="table main-table" style="grid-template-rows: 1fr 0.1em repeat({rows}, 1fr) [last-line]">
+            <span class="head">Symbol</span>
+            <span class="head">Last</span>
+            <span class="head">Bid</span>
+            <span class="head">Ask</span>
+            <span class="head">Market Value</span>
+            <span class="head">Percent Portfolio</span>
+            <span class="head">Count</span>
+            <div></div>
+            <div></div>
+            <div></div>
+
+            {positions}
+        </div>
+    </div>
+</div>
+<div class="footer" id="disclaimer"><sup>1</sup>Not endorsed by UBC.</div>
+<div class="data">
+    <datalist id="symbols-names">
+        {symbols}
+        {names}
+    </datalist>
+</div>
+</body>
+</html>
