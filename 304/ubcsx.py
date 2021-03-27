@@ -10,6 +10,9 @@ import mysql.connector
 from secret import dbpassword
 
 
+urlencode = urllib.parse.urlencode
+
+
 class HTMLOut:
     def __init__(self, file_):
         self._file = file_

@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 from templates import account_dropdown, option_value, position
-from ubcsx import cursor, dollar, escape, params, script_html, unescape, urlencode, user
+from ubcsx import cursor, dollar, escape, params, script_html, unescape, urlencode, user, current_page
 
 cursor.execute("SELECT account_name FROM accounts WHERE owner=%s", (user,))
 accounts = ""
