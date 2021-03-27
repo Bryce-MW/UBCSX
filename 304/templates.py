@@ -10,3 +10,9 @@ position = """            <span><a href="symbols.py?{symbol_url}">{symbol}</a></
             <span>{percent:.2f}%</span>
             <span>{count}</span>
             """
+search_result = """            <span><a href="symbols.py?{symbol_url}">{symbol}</a></span>
+            <span><a href="symbols.py?{symbol_url}">{name}</a></span>
+            <span>${last:.2f}</span>
+            <span>${bid:.2f}</span>
+            <span>${ask:.2f}</span>
+            """
