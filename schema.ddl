@@ -123,7 +123,7 @@ create table orders
     id                 serial primary key,
     input_datetime     datetime        default current_timestamp not null,
     valid_until        datetime                                  not null,
-    quantity           bigint unsigned default 1                 not null comment 'If quantity is positive, it is a buy order, otherwise it is a sell order.',
+    quantity           bigint default 1                          not null comment 'If quantity is positive, it is a buy order, otherwise it is a sell order.',
     symbol             varchar(16)                               not null,
     made_by_account_id bigint unsigned                           not null,
     constraint orders_accounts_id_fk
