@@ -8,6 +8,7 @@ from html import escape, unescape
 import mysql.connector
 
 from secret import dbpassword
+from templates import option_value
 
 
 urlencode = urllib.parse.urlencode
@@ -67,6 +68,19 @@ except mysql.connector.Error as err:
     print("Something went wrong with the database connection:")
     print(err)
     exit(1)
+
+
+cursor.execute("SELECT symbol FROM stocks UNION SELECT symbol FROM etfs")
+symbols = ""
+for symbol in cursor:
+    symbols += option_value.format(value=escape(symbol["symbol"]))
+symbols = symbols[8:]
+
+cursor.execute("SELECT name FROM stocks UNION SELECT account_name AS name FROM accounts INNER JOIN etfs ON accounts.id=etfs.controls_account_id")
+names = ""
+for name in cursor:
+    names += option_value.format(value=escape(name["name"]))
+names = names[8:]
 
 
 def exit_handler():

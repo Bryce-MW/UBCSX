@@ -9,6 +9,139 @@
     <link href="ubcsx.css" rel="stylesheet">
 </head>
 <body>
-
+<header class="header">
+    <h1 class="title">UBC<sup><a href="#disclaimer" tabindex="1">1</a></sup><sup class="invisible">1</sup> Stock
+        Exchange</h1>
+    <nav>
+        <ul>
+            <li class="header-item"><!--suppress HtmlUnknownAnchorTarget -->
+                <a href="info.py#{current_page}" tabindex="2">Info</a></li>
+            <li class="header-item"><a href="settings.py" tabindex="3">Settings</a></li>
+            <li class="header-search">
+                <form action="search.py" id="search-bar" method="GET"></form>
+                <div class="search-bar">
+                    <input aria-label="Search" autocomplete="off" class="search-bar" form="search-bar"
+                           list="symbols-names"
+                           name="q" placeholder="Symbol / Name" type="search"/>
+                    <button aria-label="Submit Search" class="search-button" form="search-bar"></button>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="hrule"></div>
+<div class="content">
+    <div class="par">
+        <h2 id="new_user"><a href="new_user.py">New User</a></h2>
+        <p>
+            The new user page is shown to you when you first log in, before you have an entry in our database. Here you
+            give us your name since we do not know that from just your CWL, and you give us a nickname for your first
+            account. If you navigate to this page again after you already are in our database, filling out the form will
+            change your name and create an additional account. We recommend using the <a href="add-account.py">add
+            account</a> page to add an additional account after you already have one. You may create as many accounts as
+            you like.
+        </p>
+        <h2 id="main"><a href="main.py">Accounts</a></h2>
+        <p>
+            The main page shows you an overview of your account and all of your positions. The account which has its
+            info showing will have a purple outline. If you do not see a purple outline, then you have not selected an
+            account somehow or we broke something. In that case, you will probably see lots of zeros. Please click on
+            an account name to switch to it. The accounts box also has a plus button which you can click to do the the
+            <a href="add-account.py">add account</a> page.
+        </p>
+        <p>
+            Cash is the amount of cash that you have available to buy stocks and market value is the current value of
+            your shares and ETFs. As of writing this, the value of your options and loaned shares are not included and
+            your lent shares are not deducted. This requires writing some more SQL but may be done in the future. The
+            total equity is the sum of your cash and market value. Open orders is the number of orders that you have
+            placed which are not fulfilled and daily maintenance is the amount which you must pay daily to maintain the
+            shares which you have loaned. This does not have deducted the income that you receive from lending shares
+            yet but this may be improved with some more SQL in the future. Since all accounts start with the same amount
+            of money, your closed profit is how much money you have now divided by how much you started with and the
+            total profit is your total equity divided by how much money you started with.
+        </p>
+        <p>
+            The table contains all of your current positions. As of writing this, it does not yet include ETFs and
+            options but that is planned if we have enough time. The last price is the last price that a share was traded
+            at and is only available for shares, not options or ETFs. ETFs will use the present value of one share
+            instead. This value is used to calculate the value of your positions. For options, the value uses the
+            bid-ask spread. The bid is the highest price a buyer is willing to pay and the ask is the lowest price a
+            seller is willing to receive. The market value is the value of the position as mentioned multiplied by the
+            number of that position that you own. The percent of portfolio is the value of this position divided by your
+            market value. The count is how many of this position you have. Click on one of the symbols in the symbol
+            column to go to the page for that symbol.
+        </p>
+        <h2 id="info"><a href="info.py">Info</a></h2>
+        <p>
+            This is the page that you are on now! This page describes all of the other pages, their functionality, and
+            any caveats due to something not being implemented yet.
+        </p>
+        <h2 id="settings"><a href="settings.py">Settings</a></h2>
+        <p>
+            The settings page allows you to change your name. Currently your name only effects the name listed as the
+            CEO of any company which you IPO. Changing your name will not change the CEO of any existing company. In the
+            future, this page will also allow you to delete an account or your entire user. If you delete an account
+            (or your user which will delete all of your accounts), all positions that you owned will disappear, lent
+            shares will go back to their owner and loaned shares will be revoked. If you delete your user, your name
+            will still stay associated with all companies that you are the CEO of.
+        </p>
+        <h2 id="search"><a href="search.py">Search</a></h2>
+        <p>
+            This page shows you the search results for whatever you typed in the search bar. It looks at both symbols
+            and company names. It will shows both stocks and ETFs. It will also give you the price for them. Click on a
+            symbol or name to go to the symbols page for that symbol. There is a create button which will lead you to
+            the IPO page with the symbol or name field pre-filled with your query depending on which we guess that it
+            is.
+        </p>
+        <h2 id="add-account"><a href="add-account.py">Add Account</a></h2>
+        <p>
+            You can use this page to create a new account by giving it a name. One of the simplest pages on the site.
+        </p>
+        <h2 id="orders"><a href="orders.py">Orders</a></h2>
+        <p>
+            The orders page shows you all of your orders in a table and allows you to delete them. You may also place
+            new orders. Make sure not to select an option order if you are ordering an ETF and don't enter an expiry
+            or strike price if you are not making an option order. It won't do anything if you enter them but it might
+            confuse you. Unfortunately, it is difficult to remove those fields when they are not applicable without
+            using Javascript which is something that we tried to avoid in this project.
+        </p>
+        <h2 id="symbols"><a href="symbols.py">Symbols</a></h2>
+        <p>
+            This page shows you all of the information about a symbol or option that you choose. The last price is the
+            last price that a share was traded at. The outstanding shares is the total number of shares for that company
+            that currently exist. Lent percent is the number of shares of that company which have been lent divided by
+            the number of outstanding shares. The lending available shows the total number of shares of any premium
+            which are available for lending. The open orders is the number of orders (shown in the table below) which
+            exist for the stock, option, or ETF. Some of these fields may not be present for options or ETFs or may have
+            a slightly different meaning. The place new order and lend / loan buttons take to to the
+            <a href="orders.py">orders</a> page and the <a href="lending.py">lending / loaning</a> pages respectively.
+            The open orders table shows you all current orders for the stock or option. It is not shown when an ETF is
+            selected.
+        </p>
+        <h2 id="ipo"><a href="ipo.py">IPO</a></h2>
+        <p>
+            The IPO page is used to take a new company public. If creating an ETF, the company name must be the name of
+            one of your accounts. If creating an ETF, do not enter a number of shares. It will not do anything if you do
+            but it may confuse you. Note that you will not be able to create more shares later. You will also have a
+            chance to update your CEO quote. Note that this quote is tied to you as a CEO for all companies that you are
+            the CEO of but it will not effect any companies that you were the CEO of with a previous name.
+        </p>
+        <h2 id="lending"><a href="lending.py">Lending / Loaning</a></h2>
+        <p>
+            Lending and Loaning can be done on this page by offering or taking an existing offer to lend. When offering,
+            you specify the APR premium that you are willing to allow and how many shares you will offer at that
+            premium. When taking an offer, you specify the maximum premium that you are willing to accept. You will take
+            all shares below that premium until you have taken the number that you requested or no more shares are
+            available below that premium.
+        </p>
+    </div>
+</div>
+<div class="footer" id="disclaimer"><sup>1</sup>Not endorsed by UBC.</div>
+<div class="data">
+    <datalist id="symbols-names">
+        {symbols}
+        {names}
+    </datalist>
+</div>
 </body>
 </html>
