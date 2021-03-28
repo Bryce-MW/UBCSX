@@ -11,6 +11,46 @@
     <link href="https://code.cdn.mozilla.net/fonts/fira.css" rel="stylesheet">
 </head>
 <body>
-
+<header class="header">
+    <h1 class="title">UBC<sup><a href="#disclaimer" tabindex="1">1</a></sup><sup class="invisible">1</sup> Stock
+        Exchange</h1>
+    <nav>
+        <ul>
+            <li class="header-item"><!--suppress HtmlUnknownAnchorTarget -->
+                <a href="info.py#{current_page}" tabindex="2">Info</a></li>
+            <li class="header-item"><a href="settings.py" tabindex="3">Settings</a></li>
+            <li class="header-search">
+                <form action="search.py" id="search-bar" method="GET"></form>
+                <div class="search-bar">
+                    <input aria-label="Search" autocomplete="off" class="search-bar" form="search-bar"
+                           list="symbols-names"
+                           name="q" placeholder="Symbol / Name" type="search"/>
+                    <button aria-label="Submit Search" class="search-button" form="search-bar"></button>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="hrule"></div>
+<div class="content">
+    <div class="center-card">
+        <form class="center-card" id="create-user-form" method="POST"></form>
+        Hello {user},<br/>
+        We need a nickname for your new account.<br/>
+        <input aria-label="New account nickname" autocomplete="off" class="text-input full-length interactive"
+               form="create-user-form" maxlength="255"
+               minlength="1" name="account_name" placeholder="Personal" required type="text"><br/>
+        <button aria-label="Submit" class="submit br-submit interactive" form="create-user-form" type="submit"
+                value="Submit">Submit
+        </button>
+    </div>
+</div>
+<div class="footer" id="disclaimer"><sup>1</sup>Not endorsed by UBC.</div>
+<div class="data">
+    <datalist id="symbols-names">
+        {symbols}
+        {names}
+    </datalist>
+</div>
 </body>
 </html>

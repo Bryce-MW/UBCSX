@@ -10,7 +10,6 @@ import mysql.connector
 from secret import dbpassword
 from templates import option_value
 
-
 urlencode = urllib.parse.urlencode
 
 
@@ -69,14 +68,13 @@ except mysql.connector.Error as err:
     print(err)
     exit(1)
 
-
-cursor.execute("SELECT symbol FROM stocks UNION SELECT symbol FROM etfs")
+cursor.execute("select symbol from stocks union select symbol from etfs")
 symbols = ""
 for symbol in cursor:
     symbols += option_value.format(value=escape(symbol["symbol"]))
 symbols = symbols[8:]
 
-cursor.execute("SELECT name FROM stocks UNION SELECT account_name AS name FROM accounts INNER JOIN etfs ON accounts.id=etfs.controls_account_id")
+cursor.execute("select name from stocks union select account_name as name from accounts inner join etfs on accounts.id=etfs.controls_account_id")
 names = ""
 for name in cursor:
     names += option_value.format(value=escape(name["name"]))
@@ -95,8 +93,15 @@ if os.path.isfile(script_html_name):
     script_html = open(script_html_name, mode="r").read()
 
 
-def redirect(url: str):
+def redirect(url: str, message: str = ""):
     if os.path.isfile("redirect.html"):
-        print(open("redirect.html", mode="r").read().format(url=escape(url)))
+        print(open("redirect.html", mode="r").read().format(message=message, url=escape(url)))
     else:
         print(f"""<HTML><head><meta http-equiv="Refresh" content="1; url={escape(url)}"><link href="ubcsx.css" rel="stylesheet"></head><body class="gradient"></HTML>""")
+
+
+def format_ba(x):
+    if x is not None:
+        return f"${float(x) / dollar:.2f}"
+    else:
+        return ""
