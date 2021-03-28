@@ -33,7 +33,7 @@
 </header>
 <div class="hrule"></div>
 <div class="content">
-    <div class="par center-card">
+    <div>
         <form class="center-card" id="change-name-form" method="POST"></form>
         Hello {name},<br/>
         If you would like to change your name, enter the new one below<br/>
@@ -42,7 +42,8 @@
                minlength="1" name="name" placeholder="{name}" required type="text"><br/>
         <button aria-label="Submit" class="submit br-submit interactive" form="change-name-form" type="submit"
                 value="Submit">Submit
-        </button>
+        </button><a href="main.py"><button aria-label="Cancel" class="submit br-submit interactive">Cancel
+        </button></a>
     </div>
 </div>
 <div class="footer" id="disclaimer"><sup>1</sup>Not endorsed by UBC.</div>
