@@ -12,7 +12,7 @@ position = """            <span><a href="symbols.py?{symbol_url}">{symbol}</a></
             """
 search_result = """            <span><a href="symbols.py?{symbol_url}">{symbol}</a></span>
             <span><a href="symbols.py?{symbol_url}">{name}</a></span>
-            <span>${last:.2f}</span>
+            <span>{last}</span>
             <span>{bid}</span>
             <span>{ask}</span>
             """

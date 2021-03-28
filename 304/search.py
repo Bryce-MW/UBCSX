@@ -29,7 +29,19 @@ if query:
 
     for row in cursor:
         rows += 1
-        search_results += search_result.format(symbol_url=urlencode({"symbol": row['symbol']}), symbol=escape(row["symbol"]), name=escape(row["name"]), last=row["last"] / dollar, bid=format_ba(row["bid"]), ask=format_ba(row["ask"]))
+        search_results += search_result.format(symbol_url=urlencode({"symbol": row['symbol']}), symbol=escape(row["symbol"]), name=escape(row["name"]), last=format_ba(row["last"]), bid=format_ba(row["bid"]), ask=format_ba(row["ask"]))
+
+    cursor.execute("""
+            SELECT etfs.symbol AS symbol, accounts.account_name AS name, SUM((stocks.last_price + accounts.balance) / (owns.units / (SELECT SUM(units) FROM owns AS o2 where o2.symbol=owns.symbol))) AS last
+        FROM shares INNER JOIN stocks ON shares.symbol=stocks.symbol INNER JOIN accounts ON accounts.id=shares.owned_by_account_id RIGHT JOIN etfs ON accounts.id=etfs.controls_account_id LEFT JOIN owns ON owns.symbol=etfs.symbol
+        GROUP BY etfs.symbol, accounts.account_name
+        HAVING etfs.symbol LIKE CONCAT('%', %(q)s, '%') OR accounts.account_name LIKE CONCAT('%', %(q)s, '%')
+        ORDER BY etfs.symbol LIKE CONCAT(%(q)s, '%'), accounts.account_name LIKE CONCAT(%(q)s, '%'), etfs.symbol LIKE CONCAT('%', %(q)s, '%'), accounts.account_name LIKE CONCAT('%', %(q)s, '%'), etfs.symbol
+        """, {"q":query})
+
+    for row in cursor:
+        rows += 1
+        search_results += search_result.format(symbol_url=urlencode({"symbol": row['symbol']}), symbol=escape(row["symbol"]), name=escape(row["name"]), last=format_ba(row["last"]), bid="", ask="")
 
 
 
