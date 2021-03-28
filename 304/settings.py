@@ -1,5 +1,5 @@
 #! /usr/bin/python3
-from ubcsx import cursor, post, redirect, script_html, user, escape, unescape, params, current_page, names, symbols
+from ubcsx import cursor, post, redirect, script_html, user, unescape, params, current_page, names, symbols, escape
 
 cursor.execute("SELECT owner_name FROM owners WHERE owner=%s", (user,))
 name = escape(cursor.fetchone()["owner_name"])
