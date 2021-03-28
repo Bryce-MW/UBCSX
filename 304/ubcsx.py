@@ -100,3 +100,9 @@ def redirect(url: str):
         print(open("redirect.html", mode="r").read().format(url=escape(url)))
     else:
         print(f"""<HTML><head><meta http-equiv="Refresh" content="1; url={escape(url)}"><link href="ubcsx.css" rel="stylesheet"></head><body class="gradient"></HTML>""")
+
+def format_ba(x):
+    if x is not None:
+        return f"${float(x)/dollar:.2f}"
+    else:
+        return ""
