@@ -31,6 +31,56 @@
         </ul>
     </nav>
 </header>
+<div class="content">
+    <div >
+        <form class="center-card" id="add-order-form" method="POST"></form>
+        <input aria-label="Symbol" class="text-input full-length interactive"
+               form="add-order-form" maxlength="255"
+               minlength="1" name="symbol" placeholder="" required type="text"><br/>
+        <input aria-label="Count" class="text-input full-length interactive"
+               form="add-order-form" maxlength="255"
+               minlength="1" name="count" placeholder="" required type="number"><br/>
+        <input aria-label="New name" class="text-input full-length interactive"
+               form="add-order-form" maxlength="255"
+               minlength="1" name="name" placeholder="" required type="text"><br/>
+        <select aria-label="Type" class="text-input full-length interactive"
+               form="add-order-form" name="type" required><br/>
+        <input aria-label="Limit" class="text-input full-length interactive"
+               form="add-order-form" maxlength="255"
+               minlength="1" name="limit" placeholder="" required type="text"><br/>
+        <input aria-label="Stop" class="text-input full-length interactive"
+               form="add-order-form" maxlength="255"
+               minlength="1" name="stop" placeholder="" required type="text"><br/>
+        <input aria-label="Option" class="text-input full-length interactive"
+               form="add-order-form" maxlength="255"
+               minlength="1" name="option" placeholder="" required type="checkbox"><br/>
+        <input aria-label="Expiry" class="text-input full-length interactive"
+               form="add-order-form" maxlength="255"
+               minlength="1" name="expiry" placeholder="" required type="datetime-local"><br/>
+        <input aria-label="Strike Price" class="text-input full-length interactive"
+               form="add-order-form" maxlength="255"
+               minlength="1" name="strike-price" placeholder="" required type="text"><br/>
+
+        <button aria-label="Submit" class="submit br-submit interactive" form="add-order-form" type="submit"
+                value="Submit">Submit
+        </button><a href="main.py"><button aria-label="Cancel" class="submit br-submit interactive">Cancel
+        </button></a>
+    </div>
+</div>
+<div class="content-table">
+    <h2>Your Orders</h2>
+    <div class="table main-table" >
+        <span class="head">Symbol</span>
+        <span class="head">Type</span>
+        <span class="head">Limit</span>
+        <span class="head">Stop</span>
+        <span class="head">Current Price</span>
+        <div></div>
+        <div></div>
+        <div></div>
+
+    </div>
+</div>
 <div class="hrule"></div>
 <div class="content">
 </div>
