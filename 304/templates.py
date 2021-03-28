@@ -4,8 +4,8 @@ account_dropdown = """                <li><a href="main.py?{account_escaped}" da
 option_value = """        <option value="{value}"></option>\n"""
 position = """            <span><a href="symbols.py?{symbol_url}">{symbol}</a></span>
             <span>${last:.2f}</span>
-            <span>${bid:.2f}</span>
-            <span>${ask:.2f}</span>
+            <span>{bid}</span>
+            <span>{ask}</span>
             <span>${value:.2f}</span>
             <span>{percent:.2f}%</span>
             <span>{count}</span>
@@ -13,6 +13,6 @@ position = """            <span><a href="symbols.py?{symbol_url}">{symbol}</a></
 search_result = """            <span><a href="symbols.py?{symbol_url}">{symbol}</a></span>
             <span><a href="symbols.py?{symbol_url}">{name}</a></span>
             <span>${last:.2f}</span>
-            <span>${bid:.2f}</span>
-            <span>${ask:.2f}</span>
+            <span>{bid}</span>
+            <span>{ask}</span>
             """

@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 from templates import account_dropdown, position
-from ubcsx import cursor, dollar, escape, params, script_html, unescape, urlencode, user, current_page, names, symbols
+from ubcsx import cursor, dollar, escape, params, script_html, unescape, urlencode, user, current_page, names, symbols, format_ba
 
 if "account" not in params:
     account_name = ""
@@ -51,7 +51,7 @@ if "account" in params:
         ON a.symbol=b.symbol""", (market_value, user, account_name))
     for row in cursor:
         rows += 0
-        positions += position.format(symbol=escape(row['symbol']), symbol_url=escape(urlencode({"symbol": row['symbol']})), last=float(row['last']) / dollar, bid=float(row['bid'] or 0) / dollar, ask=float(row['ask'] or 0) / dollar, percent=row['percent'] * 100, count=row['count'], value=float(row['value']) / dollar)
+        positions += position.format(symbol=escape(row['symbol']), symbol_url=escape(urlencode({"symbol": row['symbol']})), last=float(row['last']) / dollar, bid=format_ba(row['bid']), ask=format_ba(row['ask']), percent=row['percent'] * 100, count=row['count'], value=float(row['value']) / dollar)
     positions = positions[12:]
 
     # TODO(Bryce): Add ETFs, options, and loaned shares
