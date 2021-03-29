@@ -84,6 +84,15 @@ a:hover {
     transition: box-shadow 200ms cubic-bezier(.76, 0, .27, 1.55);
 }
 
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 body {
     font-family: "Fira Sans", sans-serif;
     line-height: 1.5em;
@@ -434,8 +443,8 @@ input.search-bar:focus::-webkit-input-placeholder {
     content: "";
     display: inline-block;
     border-radius: 100%;
-    width: 0.01em;
-    height: 0.01em;
+    width: 0.01rem;
+    height: 0.01rem;
     box-shadow: 0 0 0 0.8em white, 0 0 0 1.2em black;
     position: absolute;
     margin: 1.9em 4em 0.5em 2.3em;
@@ -532,9 +541,12 @@ input.search-bar:focus::-webkit-input-placeholder {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin-left: 1em;
     margin-top: 1em;
     column-gap: 1em;
+}
+
+.content-top .account-info {
+    margin-left: 1em;
 }
 
 .account-info .hrule {
@@ -565,6 +577,38 @@ input.search-bar:focus::-webkit-input-placeholder {
     grid-template-rows: repeat(2, auto) [last-line];
 }
 
+.symbols-symbol {
+    grid-template-rows: repeat(4, auto) [last-line] auto;
+    row-gap: 0;
+}
+
+.symbols-symbol .account-item {
+    margin-bottom: 0.5em;
+}
+
+.symbols-symbol div:last-of-type {
+    height: calc(100% - 0.5em);
+}
+
+.symbols-symbol button:last-of-type {
+    grid-column: 1 / 4;
+    text-align: center;
+}
+
+.symbols-detail {
+    grid-template-rows: repeat(5, auto) [last-line];
+}
+
+.symbols-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 1em;
+    gap: 1.5em;
+}
+
+.symbols-links
 .grid-container span {
     justify-self: end;
     text-align: right;
@@ -692,9 +736,28 @@ input.search-bar:focus::-webkit-input-placeholder {
 }
 
 a.create {
-    font-size: 1.6rem;
+    font-size: min(1.6rem, 5vw);
     padding: 0.3em;
     margin: 2em 2em 0.5em auto;
     border-radius: var(--corner-round);
     border: 0.2em solid var(--orange);
+}
+
+#option-check:checked ~ :not(button) {
+    display: inline;
+}
+
+#option-check ~ :not(button, div) {
+    display: none;
+}
+
+.short-input {
+    width: 15ch;
+}
+
+.grid-submit {
+    width: 50%;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    justify-self: center;
 }
