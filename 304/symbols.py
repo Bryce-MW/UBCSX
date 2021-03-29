@@ -64,6 +64,11 @@ if symbol:
                     is_stop,
                     `limit`.price,
                     stop.price
+                ORDER BY
+                    is_sell ASC,
+                    IFNULL(stop.price, `limit`.price) ASC,
+                    is_limit ASC,
+                    is_stop ASC
                 """, (symbol,))
             found_sell = False
             for row in cursor:
