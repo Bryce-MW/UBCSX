@@ -1,9 +1,12 @@
 #! /usr/bin/python3
-from ubcsx import script_html, cursor, names, symbols, current_page, params, unescape
+from ubcsx import script_html, cursor, names, symbols, current_page, params, unescape, post
 
 if "account" in params:
     account_name = unescape(params["account"][0])
-    print(script_html.format(**globals()))
+    if not post:
+        print(script_html.format(**globals()))
+    else:
+        print(post)
 
     # cursor.execute("""
     #         SELECT a.symbol AS symbol, last, bid, ask, count, value, percent FROM
