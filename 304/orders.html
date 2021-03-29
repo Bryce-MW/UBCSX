@@ -31,6 +31,7 @@
         </ul>
     </nav>
 </header>
+<div class="hrule"></div>
 <div class="content">
     <form class="center-card" id="add-order-form" method="POST"></form>
     <label for="symbol">Symbol</label><input aria-label="Symbol" id="symbol" class="text-input interactive"
@@ -66,7 +67,7 @@
 </div>
 <div class="content-table">
     <h2>Your Orders</h2>
-    <div class="table main-table" >
+    <div class="table orders-table" style="grid-template-rows: 1fr 0.1em repeat({rows}, 1fr) [last-line]">
         <span class="head">Symbol</span>
         <span class="head">Type</span>
         <span class="head">Limit</span>
@@ -76,15 +77,12 @@
         <div></div>
         <div></div>
         <div></div>
-        <form id="delete-order-form" method="POST"></form>
         {orders}
     </div>
 </div>
-<div class="hrule"></div>
-<div class="content">
-</div>
 <div class="footer" id="disclaimer"><sup>1</sup>Not endorsed by UBC.</div>
 <div class="data">
+    <form id="delete-order-form" method="POST"></form>
     <datalist id="symbols-names">
         {symbols}
         {names}

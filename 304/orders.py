@@ -3,6 +3,7 @@ from templates import order
 from ubcsx import script_html, cursor, names, symbols, current_page, params, unescape, post, user, escape, urlencode, dollar
 
 orders = ""
+rows = 0
 
 if "account" in params:
     account_name = unescape(params["account"][0])
@@ -17,6 +18,7 @@ if "account" in params:
         #                            stop=float(row['stop']) / dollar if (row['type'] == 'Stop') else "",
         #                            price=float(row['value']) / dollar,
         #                            id=row['id'])
+        rows += 1
         orders += order.format(symbol="AAPL",
                                    symbol_url=escape(urlencode({"symbol": "AAPL"})),
                                    type="Limit",
