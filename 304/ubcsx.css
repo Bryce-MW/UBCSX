@@ -665,6 +665,10 @@ input.search-bar:focus::-webkit-input-placeholder {
     grid-template-columns: auto 0.1em auto 0.1em repeat(3, auto) [last-column];
 }
 
+.symbols-table {
+    grid-template-columns: repeat(4, auto) [last-column];
+}
+
 .search-table div:nth-of-type(3) {
     grid-column: 4 / 5;
     grid-row: 3 / last-line;
@@ -715,6 +719,15 @@ input.search-bar:focus::-webkit-input-placeholder {
     height: 100%;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.symbols-table div:last-of-type {
+    grid-column: 1 / last-column;
+
+    background-color: var(--orange);
+    width: calc(100% - 1em);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .table span {

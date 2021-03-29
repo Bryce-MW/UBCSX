@@ -77,17 +77,13 @@
     </div>
     <div class="content-table">
         <h2>Your Positions</h2>
-        <div class="table main-table" style="grid-template-rows: 1fr 0.1em repeat({rows}, 1fr) [last-line]">
-            <span class="head">Symbol</span>
-            <span class="head">Last</span>
-            <span class="head">Bid</span>
-            <span class="head">Ask</span>
-            <span class="head">Market Value</span>
-            <span class="head">Percent Portfolio</span>
+        <div class="table symbols-table" style="grid-template-rows: 1fr 0.1em {rows_0} 0.1em {rows_1} [last-line]">
+            <span class="head">Type</span>
+            <span class="head">Buy / Sell</span>
+            <span class="head">Limit / Stop</span>
             <span class="head">Count</span>
             <div></div>
-            <div></div>
-            <div></div>
+            <div style="grid-row: {buy_end} / {buy_end_po};"></div>
 
             {orders}
         </div>

@@ -16,3 +16,8 @@ search_result = """            <span><a href="symbols.py?{symbol_url}">{symbol}<
             <span>{bid}</span>
             <span>{ask}</span>
             """
+symbol_order = """            <span class="head">{type}</span>
+            <span class="head">{buy_sell}</span>
+            <span class="head">{limit}</span>
+            <span class="head">{count}</span>
+            """
