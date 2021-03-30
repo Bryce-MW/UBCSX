@@ -11,31 +11,45 @@ if "account" in params:
     cursor.execute("SELECT id FROM accounts WHERE owner=%s AND account_name=%s", (user, account_name))
     account_id = cursor.fetchone()["id"]
     if not post:
-        # cursor.execute()
-        # for row in cursor:
-        #     print(row)
-        # rows += 1
-        # orders += order.format(symbol=escape(row['symbol']),
-        #                        symbol_url=escape(urlencode({"symbol": row['symbol']})),
-        #                        type=row['type'],
-        #                        limit=float(row['limit']) / dollar if (row['type'] == 'Limit') else "",
-        #                        stop=float(row['stop']) / dollar if (row['type'] == 'Stop') else "",
-        #                        price=float(row['value']) / dollar,
-        #                        id=row['id'],
-        #                            option=row['option'])
-        rows += 1
-        orders += order.format(symbol="AAPL",
-                               symbol_url=escape(urlencode({"symbol": "AAPL"})),
-                               type="Limit",
-                               limit=float("3245345") / dollar if ("Limit" == 'Limit') else "",
-                               stop=float("3245345") / dollar if ("Limit" == 'Stop') else "",
-                               price=float("3245345") / dollar,
-                               id=10,
-                               option="on")
+        cursor.execute("""SELECT limit_table.price as limit_price, orders_prices.id as id, orders_prices.symbol as symbol, orders_prices.price as price FROM `limit` as limit_table INNER JOIN (SELECT orders.id as id, orders.symbol as symbol, stocks.last_price as price FROM orders INNER JOIN stocks ON orders.symbol=stocks.symbol) AS orders_prices ON orders_prices.id=limit_table.order_id""")
+        for row in cursor:
+            # print(row)
+            rows += 1
+            orders += order.format(symbol=escape(row['symbol']),
+                                   symbol_url=escape(urlencode({"symbol": row['symbol']})),
+                                   type="Limit",
+                                   limit=float(row['limit_price']) / dollar,
+                                   stop="",
+                                   price=float(row['price']) / dollar,
+                                   id=row['id'])
+        #
+        cursor.execute("""SELECT stop.price as stop, stop.limit_price as limit_price, orders_prices.id as id, orders_prices.symbol as symbol, orders_prices.price as price FROM stop INNER JOIN (SELECT orders.id as id, orders.symbol as symbol, stocks.last_price as price FROM orders INNER JOIN stocks ON orders.symbol=stocks.symbol) AS orders_prices ON orders_prices.id=stop.order_id""")
+        for row in cursor:
+            # print(row)
+            rows += 1
+            orders += order.format(symbol=escape(row['symbol']),
+                                   symbol_url=escape(urlencode({"symbol": row['symbol']})),
+                                   type="Stop",
+                                   limit=float(row['limit_price']) / dollar,
+                                   stop=float(row['stop']) / dollar,
+                                   price=float(row['price']) / dollar,
+                                   id=row['id'])
+
+        cursor.execute("""SELECT orders.id as id, orders.symbol as symbol, stocks.last_price as price FROM orders INNER JOIN stocks ON orders.symbol=stocks.symbol WHERE orders.id NOT IN (SELECT order_id FROM `limit`) AND orders.id NOT IN (SELECT order_id FROM stop)""")
+        for row in cursor:
+            # print(row)
+            rows += 1
+            orders += order.format(symbol=escape(row['symbol']),
+                                   symbol_url=escape(urlencode({"symbol": row['symbol']})),
+                                   type="Market",
+                                   limit="",
+                                   stop="",
+                                   price=float(row['price']) / dollar,
+                                   id=row['id'])
         orders = orders[12:]
         print(script_html.format(**globals()))
     else:
-        print(post)
+        # print(post)
         if 'delete' in post:
             cursor.execute("DELETE FROM orders WHERE id = %s", (post['delete'][0],))
             redirect(f"orders.py?account={account_name}", "Order successfully deleted!")
@@ -53,18 +67,18 @@ if "account" in params:
 
             cursor.execute("SELECT LAST_INSERT_ID()")
             order_id = cursor.fetchone()['LAST_INSERT_ID()']
-            print(order_id)
+            # print(order_id)
             if 'option' in post:
-                print("Option")
+                # print("Option")
                 cursor.execute("INSERT INTO option_order (strike_price, expiration, order_id) VALUES (%s, %s, %s)",
                                (strike_price, expiry, order_id))
 
             if post['type'][0] == "Limit":
-                print("Limit")
+                # print("Limit")
                 cursor.execute("INSERT INTO `limit` (price, order_id) VALUES (%s, %s)",
                                (limit, order_id))
             elif post['type'][0] == "Stop":
-                print("Stop")
+                # print("Stop")
                 cursor.execute("INSERT INTO stop (price, limit_price, order_id) VALUES (%s, %s, %s)",
                                (stop, limit, order_id))
             redirect(f"orders.py?account={account_name}", "Order successfully added!")
