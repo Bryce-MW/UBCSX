@@ -33,12 +33,71 @@
 </header>
 <div class="hrule"></div>
 <div class="content">
+    <div class="account-info">
+        <div class="symbols-symbol grid-container">
+            <span class="account-item"><label for="symbol-field">Symbol</label></span>
+            <input autocomplete="off" class="account-item interactive short-input" form="symbol-select"
+                   id="symbol-field" list="symbols" maxlength="16" minlength="1"
+                   name="symbol" placeholder="GME" required type="text" value="{symbol}">
+            <span class="account-item"><label for="option-check">Option</label></span>
+            <input autocomplete="off" class="account-item interactive" form="symbol-select"
+                   id="option-check" name="option" type="checkbox" {checked}>
+            <span class="account-item"><label for="expiry-field">Expiry</label></span>
+            <input autocomplete="off" class="account-item interactive" form="symbol-select" id="expiry-field"
+                   min="{today}"
+                   name="expiry" placeholder="Bryce" required type="date" value="{expiry}">
+            <span class="account-item"><label for="strike-field">Strike Price</label></span>
+            <input autocomplete="off" class="account-item interactive short-input" form="symbol-select"
+                   inputmode="decimal"
+                   id="strike-field" min="0.01" name="strike"
+                   placeholder="1" required step="0.01" type="number" value="{strike}">
+            <button aria-label="Refresh" class="account-item interactive submit grid-submit"
+                    form="symbol-select" type="submit">Refresh
+            </button>
+            <div></div>
+        </div>
+        <div class="symbols-detail grid-container">
+            <span class="account-item">Last Price</span>
+            <span class="account-item">{last_price}</span>
+            <span class="account-item">Outstanding Shares</span>
+            <span class="account-item">{shares}</span>
+            <span class="account-item">Lent Percent</span>
+            <span class="account-item">{lent:.2f}%</span>
+            <span class="account-item">Lending Available</span>
+            <span class="account-item">{lending_available}</span>
+            <span class="account-item">Open Orders</span>
+            <span class="account-item">{open_orders}</span>
+            <div></div>
+        </div>
+        <div class="symbols-links">
+            <span class="account-item"><a class="create" href="orders.py?{symbol_url}">Place Order</a></span>
+            <span class="account-item"><a class="create" href="lending.py?{symbol_url}">Lend / Loan</a></span>
+        </div>
+        <div class="hrule"></div>
+    </div>
+    <div class="content-table">
+        <h2>Your Positions</h2>
+        <div class="table symbols-table" style="grid-template-rows: 1fr 0.1em {rows_0} 0.1em {rows_1} [last-line]">
+            <span class="head">Type</span>
+            <span class="head">Buy / Sell</span>
+            <span class="head">Limit / Stop</span>
+            <span class="head">Count</span>
+            <div></div>
+            <div style="grid-row: {buy_end} / {buy_end_po};"></div>
+
+            {orders}
+        </div>
+    </div>
 </div>
 <div class="footer" id="disclaimer"><sup>1</sup>Not endorsed by UBC.</div>
 <div class="data">
+    <form id="symbol-select" method="GET"></form>
     <datalist id="symbols-names">
         {symbols}
         {names}
+    </datalist>
+    <datalist id="symbols">
+        {symbols}
     </datalist>
 </div>
 </body>

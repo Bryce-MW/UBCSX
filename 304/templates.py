@@ -24,3 +24,8 @@ order = """            <span><a href="symbols.py?{symbol_url}">{symbol}</a></spa
             <span><button aria-label="delete-{id}" form="delete-order-form" type="submit"
             name="delete" value="{id}">Delete</span>
 """
+symbol_order = """            <span class="head">{type}</span>
+            <span class="head">{buy_sell}</span>
+            <span class="head">{limit}</span>
+            <span class="head">{count}</span>
+            """

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>UBC SX - Search {query}</title>
-    <meta content="UBC Stock Exchange - Search Page For Query: {query}" name="description">
+    <title>UBC SX - Remove Account</title>
+    <meta content="UBC Stock Exchange - Remove Account Page" name="description">
     <meta content="Bryce, William, Michelle" name="author">
     <link href="ubcsx.css" rel="stylesheet">
     <link href="https://code.cdn.mozilla.net/fonts/fira.css" rel="stylesheet">
@@ -20,11 +20,12 @@
                 <a href="info.py#{current_page}" tabindex="2">Info</a></li>
             <li class="header-item"><a href="settings.py" tabindex="3">Settings</a></li>
             <li class="header-search">
-                <form action="search.py" id="search" method="GET"></form>
+                <form action="search.py" id="search-bar" method="GET"></form>
                 <div class="search-bar">
-                    <input aria-label="Search" autocomplete="off" class="search-bar" form="search" list="symbols-names"
+                    <input aria-label="Search" autocomplete="off" class="search-bar" form="search-bar"
+                           list="symbols-names"
                            name="q" placeholder="Symbol / Name" type="search"/>
-                    <button aria-label="Submit Search" class="search-button" form="search"></button>
+                    <button aria-label="Submit Search" class="search-button" form="search-bar"></button>
                 </div>
             </li>
         </ul>
@@ -32,25 +33,18 @@
 </header>
 <div class="hrule"></div>
 <div class="content">
-    <div class="content-top">
-        <a class="create" href="ipo.py?{query_url}">Create</a>
-    </div>
-    <div class="content-table">
-        <h2>Results</h2>
-        <div class="table search-table" style="grid-template-rows: 1fr 0.1em repeat({rows}, 1fr) [last-line]">
-            <span class="head">Symbol</span>
-            <span class="head">Name</span>
-            <span class="head">Last</span>
-            <span class="head">Bid</span>
-            <span class="head">Ask</span>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-
-            {search_results}
-        </div>
+    <div class="center-card">
+        <form class="center-card" id="remove-account-form" method="POST"></form>
+        Hello {user},<br/>
+        Select an account to remove.<br/>
+        <select aria-label="Select account to remove" class="text-input full-length interactive"
+                form="remove-account-form" name="account_name" required>
+            {accounts_html}
+        </select>
+        <br/>
+        <button aria-label="Submit" class="submit br-submit interactive" form="remove-account-form" type="submit"
+                value="Submit">Submit
+        </button>
     </div>
 </div>
 <div class="footer" id="disclaimer"><sup>1</sup>Not endorsed by UBC.</div>
