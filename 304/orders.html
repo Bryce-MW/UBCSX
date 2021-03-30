@@ -36,28 +36,24 @@
     <form class="center-card" id="add-order-form" method="POST"></form>
     <label for="symbol">Symbol</label><input aria-label="Symbol" id="symbol" class="text-input interactive"
            form="add-order-form" maxlength="255"
-           minlength="1" name="symbol" placeholder="" required type="text"><br/>
+           minlength="1" name="symbol" required type="text"><br/>
     <label for="count">Count</label><input aria-label="Count" id="count" class="text-input interactive"
-           form="add-order-form" maxlength="255"
-           minlength="1" name="count" placeholder="" required type="number"><br/>
+           form="add-order-form" value="1" placeholder="1" min="1" name="count" required type="number"><br/>
     <label for="type">Type</label><select aria-label="Type" id="type" class="text-input interactive"
                 form="add-order-form" name="type" required>
-            <option value="Stop">Stop</option>
-            <option value="Limit">Limit</option></select><br/>
+            <option value="Limit">Limit</option>
+            <option value="Market">Market</option>
+            <option value="Stop">Stop</option></select><br/>
     <label for="limit">Limit</label><input aria-label="Limit" id="limit" class="text-input interactive"
-           form="add-order-form" maxlength="255"
-           minlength="1" name="limit" placeholder="" required type="number" step=".01"><br/>
+           form="add-order-form" value="0" min="0" name="limit" type="number" step=".01"><br/>
     <label for="stop">Stop</label><input aria-label="Stop" id="stop" class="text-input interactive"
-           form="add-order-form" maxlength="255"
-           minlength="1" name="stop" placeholder="" required type="number" step=".01"><br/>
+           form="add-order-form" value="0" min="0" name="stop" type="number" step=".01"><br/>
     <input aria-label="Option" id="option" class="interactive"
-           form="add-order-form" name="option" required type="checkbox"><label for="option">Option Order</label><br/>
+           form="add-order-form" name="option" type="checkbox"><label for="option">Option Order</label><br/>
     <label for="expiry">Expiry Date</label><input aria-label="Expiry" id="expiry" class="text-input interactive"
-           form="add-order-form" maxlength="255"
-           minlength="1" name="expiry" placeholder="" required type="datetime-local"><br/>
+           form="add-order-form" name="expiry" required type="datetime-local"><br/>
     <label for="strike">Strike Price</label><input aria-label="Strike Price" id="strike" class="text-input interactive"
-           form="add-order-form" maxlength="255"
-           minlength="1" name="strike-price" placeholder="" required type="number" step=".01"><br/>
+           form="add-order-form" min="0" name="strike_price" value="0" type="number" step=".01"><br/>
 
     <button aria-label="Buy" class="submit interactive" form="add-order-form" type="submit"
             name="action" value="Buy">Buy
