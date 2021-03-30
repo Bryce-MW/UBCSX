@@ -608,7 +608,10 @@ input.search-bar:focus::-webkit-input-placeholder {
     gap: 1.5em;
 }
 
-.symbols-links
+.symbols-ceo {
+    grid-template-rows: repeat(2, auto) [last-line];
+}
+
 .grid-container span {
     justify-self: end;
     text-align: right;
@@ -618,7 +621,8 @@ input.search-bar:focus::-webkit-input-placeholder {
     text-decoration: none;
 }
 
-.account-orders span.left-align {
+.account-orders span.left-align,
+.symbols-ceo span {
     justify-self: start;
     text-align: left;
 }
