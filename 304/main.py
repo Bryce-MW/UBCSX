@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 from templates import account_dropdown, position
-from ubcsx import cursor, dollar, escape, params, script_html, unescape, urlencode, user, current_page, names, symbols, format_ba
+from ubcsx import cursor, dollar, escape, params, script_html, unescape, urlencode, user, current_page, names, symbols, format_ba, redirect
 
 if "account" not in params:
     account_name = ""
@@ -9,9 +9,15 @@ else:
 
 cursor.execute("SELECT account_name FROM accounts WHERE owner=%s", (user,))
 accounts = ""
+account_list = []
 for account in cursor:
+    account_list.append(account["account_name"])
     accounts += account_dropdown.format(account=escape(account["account_name"]), account_escaped=urlencode({"account": account["account_name"]}), selected=account["account_name"] == account_name)
 accounts = accounts[16:]
+
+if account_name not in account_list:
+    redirect("main.py?" + urlencode({"account":account_list[0]}))
+    exit()
 
 rows = 1
 positions = ""
