@@ -1,7 +1,9 @@
 #! /usr/bin/python3
-from ubcsx import cursor, post, redirect, script_html, urlencode, user, current_page, symbols, names
+from ubcsx import cursor, post, redirect, script_html, urlencode, user, current_page, symbols, names, escape
 
 if not post:
+    cursor.execute("SELECT owner_name FROM owners WHERE owner = %s", (user,))
+    owner_name = escape(cursor.fetchone()["owner_name"])
     print(script_html.format(**globals()))
 else:
     try:

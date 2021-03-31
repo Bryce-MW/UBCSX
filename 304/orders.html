@@ -36,6 +36,7 @@
     <form class="center-card" id="add-order-form" method="POST"></form>
     <label for="symbol">Symbol</label><input aria-label="Symbol" id="symbol" class="text-input interactive"
            form="add-order-form" maxlength="255"
+
            minlength="1" name="symbol" required type="text"><br/>
     <label for="count">Count</label><input aria-label="Count" id="count" class="text-input interactive"
            form="add-order-form" value="1" placeholder="1" min="1" name="count" required type="number"><br/>
@@ -54,7 +55,7 @@
            form="add-order-form" name="expiry" required type="datetime-local"><br/>
     <label for="strike">Strike Price</label><input aria-label="Strike Price" id="strike" class="text-input interactive"
            form="add-order-form" min="0" name="strike_price" value="0" type="number" step=".01"><br/>
-
+  
     <button aria-label="Buy" class="submit interactive" form="add-order-form" type="submit"
             name="action" value="Buy">Buy
     </button><button aria-label="Sell" class="submit interactive" form="add-order-form" type="submit"

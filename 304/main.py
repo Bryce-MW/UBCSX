@@ -1,6 +1,12 @@
 #! /usr/bin/python3
 from templates import account_dropdown, position
-from ubcsx import cursor, dollar, escape, params, script_html, unescape, urlencode, user, current_page, names, symbols, format_ba
+from ubcsx import cursor, dollar, escape, params, script_html, unescape, urlencode, user, current_page, names, symbols, format_ba, redirect
+
+
+all_selected = False
+if "all" in params:
+    all_selected = True
+
 
 if "account" not in params:
     account_name = ""
@@ -9,9 +15,15 @@ else:
 
 cursor.execute("SELECT account_name FROM accounts WHERE owner=%s", (user,))
 accounts = ""
+account_list = []
 for account in cursor:
+    account_list.append(account["account_name"])
     accounts += account_dropdown.format(account=escape(account["account_name"]), account_escaped=urlencode({"account": account["account_name"]}), selected=account["account_name"] == account_name)
 accounts = accounts[16:]
+
+if account_name not in account_list and not all_selected:
+    redirect("main.py?" + urlencode({"account":account_list[0]}))
+    exit()
 
 rows = 1
 positions = ""
@@ -72,5 +84,33 @@ else:
     total_profit_percent = 0
     profit = 0
     profit_percent = 0
+    if all_selected:
+        cursor.execute("""
+            SELECT a.symbol AS symbol, last, bid, ask, 0 AS count, 0 AS value, 0 AS percent FROM
+                (SELECT
+                    stocks.symbol AS symbol,
+                    stocks.last_price AS last
+                FROM
+                    stocks
+                WHERE
+                    NOT EXISTS (SELECT 1 FROM accounts WHERE accounts.owner=%(owner)s AND NOT EXISTS (SELECT 1 FROM shares WHERE shares.owned_by_account_id=accounts.id AND shares.symbol=stocks.symbol))
+                ) AS a
+            INNER JOIN
+                (SELECT bid, ask, bid_table.symbol FROM
+                    (SELECT max(price) AS bid, symbol FROM `limit` INNER JOIN orders ON `limit`.order_id=orders.id WHERE orders.quantity>0 GROUP BY symbol) AS bid_table
+                LEFT JOIN
+                    (SELECT min(price) AS ask, symbol FROM `limit` INNER JOIN orders ON `limit`.order_id=orders.id WHERE orders.quantity<0 GROUP BY symbol) AS ask_table
+                ON bid_table.symbol=ask_table.symbol UNION
+                SELECT bid, ask, ask_table.symbol AS symbol FROM
+                    (SELECT max(price) AS bid, symbol FROM `limit` INNER JOIN orders ON `limit`.order_id=orders.id WHERE orders.quantity>0 GROUP BY symbol) AS bid_table
+                RIGHT JOIN
+                    (SELECT min(price) AS ask, symbol FROM `limit` INNER JOIN orders ON `limit`.order_id=orders.id WHERE orders.quantity<0 GROUP BY symbol) AS ask_table
+                ON bid_table.symbol=ask_table.symbol) AS b
+            ON a.symbol=b.symbol""", {"owner":user})
+        for row in cursor:
+            rows += 0
+            positions += position.format(symbol=escape(row['symbol']), symbol_url=escape(urlencode({"symbol": row['symbol']})), last=float(row['last']) / dollar, bid=format_ba(row['bid']), ask=format_ba(row['ask']), percent=row['percent'] * 100, count=row['count'], value=float(row['value']) / dollar)
+        positions = positions[12:]
+
 
 print(script_html.format(**globals()))

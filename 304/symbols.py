@@ -20,9 +20,31 @@ lent = 0
 lending_available = 0
 open_orders = 0
 
+ceo = ""
+quote = ""
+
+if not symbol:
+    cursor.execute("SELECT symbol FROM stocks LIMIT 1")
+    res = cursor.fetchone()
+    if res:
+        symbol = res["symbol"]
+
 if symbol:
     cursor.execute("SELECT 1 FROM etfs WHERE symbol=%s", (symbol,))
     etf = bool(cursor.rowcount)
+
+    if etf:
+        cursor.execute("SELECT owner_name FROM owners INNER JOIN accounts ON owners.owner=accounts.owner INNER JOIN etfs ON accounts.id=etfs.controls_account_id WHERE etfs.symbol=%s", (symbol,))
+        ceo = escape(cursor.fetchone()["owner_name"])
+        cursor.execute("SELECT ceo_quote FROM ceos WHERE ceo=%s", (ceo,))
+        res = cursor.fetchone()
+        if res:
+            quote = escape(res["ceo_quote"])
+    else:
+        cursor.execute("SELECT ceo_quote, ceos.ceo AS ceo FROM ceos INNER JOIN stocks ON ceos.ceo=stocks.ceo WHERE symbol=%s", (symbol,))
+        res = cursor.fetchone()
+        ceo = escape(res["ceo"])
+        quote = escape(res["ceo_quote"])
 
     if not checked or etf:
         cursor.execute("""
