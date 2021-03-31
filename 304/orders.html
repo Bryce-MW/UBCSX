@@ -33,9 +33,56 @@
 </header>
 <div class="hrule"></div>
 <div class="content">
+    <form class="center-card" id="add-order-form" method="POST"></form>
+    <label for="symbol">Symbol</label><input aria-label="Symbol" id="symbol" class="text-input interactive"
+           form="add-order-form" maxlength="255"
+           minlength="1" name="symbol" placeholder="" required type="text"><br/>
+    <label for="count">Count</label><input aria-label="Count" id="count" class="text-input interactive"
+           form="add-order-form" maxlength="255"
+           minlength="1" name="count" placeholder="" required type="number"><br/>
+    <label for="type">Type</label><select aria-label="Type" id="type" class="text-input interactive"
+                form="add-order-form" name="type" required>
+            <option value="Stop">Stop</option>
+            <option value="Limit">Limit</option></select><br/>
+    <label for="limit">Limit</label><input aria-label="Limit" id="limit" class="text-input interactive"
+           form="add-order-form" maxlength="255"
+           minlength="1" name="limit" placeholder="" required type="number" step=".01"><br/>
+    <label for="stop">Stop</label><input aria-label="Stop" id="stop" class="text-input interactive"
+           form="add-order-form" maxlength="255"
+           minlength="1" name="stop" placeholder="" required type="number" step=".01"><br/>
+    <input aria-label="Option" id="option" class="interactive"
+           form="add-order-form" name="option" required type="checkbox"><label for="option">Option Order</label><br/>
+    <label for="expiry">Expiry Date</label><input aria-label="Expiry" id="expiry" class="text-input interactive"
+           form="add-order-form" maxlength="255"
+           minlength="1" name="expiry" placeholder="" required type="datetime-local"><br/>
+    <label for="strike">Strike Price</label><input aria-label="Strike Price" id="strike" class="text-input interactive"
+           form="add-order-form" maxlength="255"
+           minlength="1" name="strike-price" placeholder="" required type="number" step=".01"><br/>
+
+    <button aria-label="Buy" class="submit interactive" form="add-order-form" type="submit"
+            name="action" value="Buy">Buy
+    </button><button aria-label="Sell" class="submit interactive" form="add-order-form" type="submit"
+            name="action" value="Sell">Sell
+    </button>
+</div>
+<div class="content-table">
+    <h2>Your Orders</h2>
+    <div class="table orders-table" style="grid-template-rows: 1fr 0.1em repeat({rows}, 1fr) [last-line]">
+        <span class="head">Symbol</span>
+        <span class="head">Type</span>
+        <span class="head">Limit</span>
+        <span class="head">Stop</span>
+        <span class="head">Current Price</span>
+        <span class="head"><img class="deleteImg" src="images/trashicon.png" width="20"></span>
+        <div></div>
+        <div></div>
+        <div></div>
+        {orders}
+    </div>
 </div>
 <div class="footer" id="disclaimer"><sup>1</sup>Not endorsed by UBC.</div>
 <div class="data">
+    <form id="delete-order-form" method="POST"></form>
     <datalist id="symbols-names">
         {symbols}
         {names}
