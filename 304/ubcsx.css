@@ -669,6 +669,10 @@ input.search-bar:focus::-webkit-input-placeholder {
     grid-template-columns: auto 0.1em auto 0.1em repeat(3, auto) [last-column];
 }
 
+.orders-table {
+            grid-template-columns: auto 0.1em repeat(5, auto) [last-column];
+}
+
 .symbols-table {
     grid-template-columns: repeat(4, auto) [last-column];
 }

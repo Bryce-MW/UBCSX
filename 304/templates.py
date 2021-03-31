@@ -16,6 +16,14 @@ search_result = """            <span><a href="symbols.py?{symbol_url}">{symbol}<
             <span>{bid}</span>
             <span>{ask}</span>
             """
+order = """            <span><a href="symbols.py?{symbol_url}">{symbol}</a></span>
+            <span>{type}</span>
+            <span>${limit}</span>
+            <span>${stop}</span>
+            <span>${price}</span>
+            <button aria-label="delete-{id}" form="delete-order-form" type="submit"
+            name="delete" value="{id}"><span>Delete</span></button>
+"""
 symbol_order = """            <span class="head">{type}</span>
             <span class="head">{buy_sell}</span>
             <span class="head">{limit}</span>
