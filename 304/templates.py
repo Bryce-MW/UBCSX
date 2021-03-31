@@ -35,5 +35,5 @@ order = """            <span><a href="symbols.py?{symbol_url}">{symbol}</a></spa
             <span>${stop}</span>
             <span>${price}</span>
             <span><button aria-label="delete-{id}" form="delete-order-form" type="submit"
-            name="delete" value="{id}">Delete</span>
+            name="delete" value="{id}">Delete</button></span>
 """
