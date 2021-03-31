@@ -123,7 +123,8 @@ if symbol:
                 rows += 1
                 orders += symbol_order.format(type="Limit" if row["is_limit"] else "Stop" if row["is_stop"] else "Market", buy_sell="Sell" if row["is_sell"] else "Buy", limit=format_ba(row["stop_price"] if row["stop_price"] else row["limit_price"]), count=-row["count"] if row["is_sell"] else row["count"])
                 if not found_sell and row['is_sell']:
-                    buy_end = rows
+                    found_sell = True
+                    buy_end = rows - 1
             orders = orders[12:]
         else:
             cursor.execute("""
@@ -155,7 +156,8 @@ if symbol:
                 rows += 1
                 orders += symbol_order.format(type="Limit" if row["is_limit"] else "Stop" if row["is_stop"] else "Market", buy_sell="Sell" if row["is_sell"] else "Buy", limit=format_ba(row["stop_price"] if row["stop_price"] else row["limit_price"]), count=-row["count"] if row["is_sell"] else row["count"])
                 if not found_sell and row['is_sell']:
-                    buy_end = rows
+                    found_sell = True
+                    buy_end = rows - 1
             orders = orders[12:]
 
 
