@@ -63,7 +63,9 @@ if "account" in params:
         ON a.symbol=b.symbol""", (market_value, user, account_name))
     for row in cursor:
         rows += 0
-        positions += position.format(symbol=escape(row['symbol']), symbol_url=escape(urlencode({"symbol": row['symbol']})), last=float(row['last']) / dollar, bid=format_ba(row['bid']), ask=format_ba(row['ask']), percent=row['percent'] * 100, count=row['count'], value=float(row['value']) / dollar)
+        account = params["account"][0] if "account" in params else ""
+        symbol_url = escape(urlencode({"symbol":row['symbol'], "account":account}))
+        positions += position.format(symbol=escape(row['symbol']), symbol_url=escape(symbol_url), last=float(row['last']) / dollar, bid=format_ba(row['bid']), ask=format_ba(row['ask']), percent=row['percent'] * 100, count=row['count'], value=float(row['value']) / dollar)
     positions = positions[12:]
 
     # TODO(Bryce): Add ETFs, options, and loaned shares
@@ -109,7 +111,9 @@ else:
             ON a.symbol=b.symbol""", {"owner":user})
         for row in cursor:
             rows += 0
-            positions += position.format(symbol=escape(row['symbol']), symbol_url=escape(urlencode({"symbol": row['symbol']})), last=float(row['last']) / dollar, bid=format_ba(row['bid']), ask=format_ba(row['ask']), percent=row['percent'] * 100, count=row['count'], value=float(row['value']) / dollar)
+            account = params["account"][0] if "account" in params else ""
+            symbol_url = urlencode({"symbol":row['symbol'], "account":account})
+            positions += position.format(symbol=escape(row['symbol']), symbol_url=symbol_url, last=float(row['last']) / dollar, bid=format_ba(row['bid']), ask=format_ba(row['ask']), percent=row['percent'] * 100, count=row['count'], value=float(row['value']) / dollar)
         positions = positions[12:]
 
 

@@ -8,7 +8,8 @@ checked = "checked" if "option" in params else ""
 today = escape(datetime.today().strftime('%Y-%m-%d'))
 expiry = escape(params["expiry"][0]) if "expiry" in params else ""
 strike = escape(params["strike"][0]) if "strike" in params else ""
-symbol_url = escape(urlencode({"symbol":symbol}))
+account = params["account"][0] if "account" in params else ""
+symbol_url = urlencode({"symbol":symbol, "account":account})
 
 orders = ""
 rows = 0

@@ -55,7 +55,7 @@ if "account" in params:
             redirect(f"orders.py?account={account_name}", "Order successfully deleted!")
         else:
             expiry = post['expiry'][0]
-            count = int(post['count'][0]) if post['action'] == "Buy" else -int(post['count'][0])
+            count = int(post['count'][0]) if post['action'][0] == "Buy" else -int(post['count'][0])
             symbol = post['symbol'][0]
             limit = float(post['limit'][0]) * dollar
             stop = float(post['stop'][0]) * dollar
