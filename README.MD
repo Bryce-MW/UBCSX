@@ -51,6 +51,7 @@ be similar in other JetBrains IDEs (I'll probably also use WebStorm).
 * Then type `USE {CWL};` and press enter to select that we want to work within our newly empty database.
 * If you copied some previous commands then you may need to go back and copy the DDL again. Now you can paste in
   that DDL, you should not see any errors.
+* If you want to use the example data, copy the` create-full.sql` file to the server, open MySQL, type `source create-full.sql` or whatever the filepath is. If you want to have the example data under your account rather than for you to create a new account, you might want to run a find and replace on `create-full.sql` to replace `brycemw` with your own CWL.
 * Type `exit` and press enter to leave. You may now log off the server.
 * Now go back to PyCharm and click the Tools menu.
 * Under the deployment sub-menu, click Configuration.
