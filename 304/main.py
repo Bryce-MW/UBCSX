@@ -97,7 +97,7 @@ else:
                 WHERE
                     NOT EXISTS (SELECT 1 FROM accounts WHERE accounts.owner=%(owner)s AND NOT EXISTS (SELECT 1 FROM shares WHERE shares.owned_by_account_id=accounts.id AND shares.symbol=stocks.symbol))
                 ) AS a
-            INNER JOIN
+            LEFT JOIN
                 (SELECT bid, ask, bid_table.symbol FROM
                     (SELECT max(price) AS bid, symbol FROM `limit` INNER JOIN orders ON `limit`.order_id=orders.id WHERE orders.quantity>0 GROUP BY symbol) AS bid_table
                 LEFT JOIN
@@ -110,7 +110,7 @@ else:
                 ON bid_table.symbol=ask_table.symbol) AS b
             ON a.symbol=b.symbol""", {"owner":user})
         for row in cursor:
-            rows += 0
+            rows += 1
             account = params["account"][0] if "account" in params else ""
             symbol_url = urlencode({"symbol":row['symbol'], "account":account})
             positions += position.format(symbol=escape(row['symbol']), symbol_url=symbol_url, last=float(row['last']) / dollar, bid=format_ba(row['bid']), ask=format_ba(row['ask']), percent=row['percent'] * 100, count=row['count'], value=float(row['value']) / dollar)
