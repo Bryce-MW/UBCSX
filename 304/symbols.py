@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 from datetime import datetime
-from ubcsx import script_html, names, symbols, current_page, params, escape, cursor, dollar, urlencode, format_ba
+from ubcsx import script_html, names, symbols, current_page, params, escape, cursor, dollar, urlencode, format_ba, dollar
 from templates import symbol_order
 
 symbol = escape(params["symbol"][0]) if "symbol" in params else ""
@@ -138,7 +138,8 @@ if symbol:
                 FROM orders
                     LEFT JOIN `limit` ON orders.id=`limit`.order_id
                     LEFT JOIN stop ON orders.id=stop.order_id
-                WHERE symbol=%(symbol)s AND EXISTS (SELECT 1 FROM option_order WHERE option_order.order_id=orders.id AND option_order.strike_price=%(strike)s AND option_order.expiration=%(expr)s)
+                    INNER JOIN option_order ON option_order.order_id=orders.id
+                WHERE symbol=%(symbol)s AND option_order.strike_price=%(strike)s AND option_order.expiration=%(expr)s
                 GROUP BY
                     is_sell,
                     is_limit,
@@ -150,7 +151,7 @@ if symbol:
                     IFNULL(stop.price, `limit`.price) ASC,
                     is_limit ASC,
                     is_stop ASC
-                """, {"symbol":symbol, "strike":strike, "expr":expiry})
+                """, {"symbol":symbol, "strike":int(float(strike)*dollar), "expr":expiry})
             found_sell = False
             for row in cursor:
                 rows += 1
