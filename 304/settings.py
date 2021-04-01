@@ -14,4 +14,4 @@ else:
         print(script_html.format(**globals()))
         exit()
     cursor.execute("UPDATE owners SET owner_name=%s WHERE owner=%s", (new_name, user))
-    redirect("main.py")
+    redirect("main.py?all")
