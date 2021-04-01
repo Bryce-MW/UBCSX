@@ -79,10 +79,10 @@ if symbol:
                 (SELECT min(price) AS ask, symbol FROM `limit` INNER JOIN orders ON `limit`.order_id=orders.id WHERE orders.quantity<0 AND EXISTS (SELECT 1 FROM option_order WHERE option_order.order_id=orders.id AND option_order.strike_price=%(strike)s AND option_order.expiration=%(expr)s) GROUP BY symbol) AS ask_table
             ON bid_table.symbol=ask_table.symbol
             WHERE ask_table.symbol=%(symbol)s
-                    """, {"symbol":symbol, "strike":strike, "expr":expiry})
+                    """, {"symbol":symbol, "strike":int(float(strike)*dollar), "expr":expiry})
         res = cursor.fetchone()
         if res:
-            last_price = format_ba(res['ask'] - res['bid'] if res['res'] and res['bid'] else None)
+            last_price = format_ba(res['ask'] - res['bid'] if res['ask'] and res['bid'] else None)
             cursor.execute("""SELECT COUNT(*) AS count FROM shares WHERE symbol=%(symbol)s UNION SELECT SUM(units) AS count FROM owns WHERE symbol=%(symbol)s""", {"symbol":symbol})
             shares = cursor.fetchone()["count"] or 0
             cursor.execute("SELECT COUNT(*) AS count FROM lent WHERE symbol=%s", (symbol,))
