@@ -85,7 +85,7 @@ if symbol:
                     """, {"symbol":symbol, "strike":int(float(strike)*dollar), "expr":expiry})
         res = cursor.fetchone()
         if res:
-            last_price = format_ba(res['ask'] - res['bid'] if res['ask'] and res['bid'] else None)
+            last_price = format_ba(((res['ask'] - res['bid']) / 2) + res['bid'] if res['ask'] and res['bid'] else None)
             cursor.execute("""SELECT COUNT(*) AS count FROM shares WHERE symbol=%(symbol)s UNION SELECT SUM(units) AS count FROM owns WHERE symbol=%(symbol)s""", {"symbol":symbol})
             shares = cursor.fetchone()["count"] or 0
             cursor.execute("SELECT COUNT(*) AS count FROM lent WHERE symbol=%s", (symbol,))
