@@ -39,6 +39,8 @@ is to use some JetBrains IDE and use deployment, but you could also directly clo
 IDEs likely also have ways to achieve similar results. The following are the steps that I used in PyCharm which should
 be similar in other JetBrains IDEs (I'll probably also use WebStorm).
 
+Note: If you just wanted to test it out, you could theoretically just clone this repo somewhere under ~/public_html and then just follow the database instructions if you don't want to go through the full process. Alternativly, you can test using my instence at https://www.students.cs.ubc.ca/~brycemw/304/. I'm happy to add sample data to your user as well if you would like. Just let me know your CWL and I can swap all of the data from my account to yours.
+
 * Clone this repository on your computer and open it with PyCharm or another JetBrains IDE.
 * Open `schema.ddl` and copy the contents.
 * Log into one of the CS servers.
