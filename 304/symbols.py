@@ -40,12 +40,15 @@ if symbol:
         cursor.execute("SELECT ceo_quote FROM ceos WHERE ceo=%s", (ceo,))
         res = cursor.fetchone()
         if res:
-            quote = escape(res["ceo_quote"])
+            if res["ceo_quote"] is not None:
+                quote = escape(res["ceo_quote"])
     else:
         cursor.execute("SELECT ceo_quote, ceos.ceo AS ceo FROM ceos INNER JOIN stocks ON ceos.ceo=stocks.ceo WHERE symbol=%s", (symbol,))
         res = cursor.fetchone()
         ceo = escape(res["ceo"])
-        quote = escape(res["ceo_quote"])
+
+        if res["ceo_quote"] is not None:
+            quote = escape(res["ceo_quote"])
 
     if not checked or etf:
         cursor.execute("""

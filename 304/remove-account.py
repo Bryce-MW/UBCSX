@@ -17,4 +17,4 @@ else:
         exit()
 
     cursor.execute("DELETE FROM accounts WHERE owner = %(user)s AND account_name = %(account_name)s", {"user": user, "account_name": account_name})
-    redirect(f"main.py", "Account removed successfully.")
+    redirect("main.py?all", "Account removed successfully.")
