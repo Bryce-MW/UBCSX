@@ -33,6 +33,32 @@
 </header>
 <div class="hrule"></div>
 <div class="content">
+    <form class="center-card" id="add-lending-form" method="POST"></form>
+    <label for="symbol">Symbol</label><input aria-label="Symbol" id="symbol" class="text-input interactive"
+           form="add-lending-form" maxlength="255"
+           minlength="1" name="symbol" required type="text"><br/>
+    <label for="count">Count</label><input aria-label="Count" id="count" class="text-input interactive"
+           form="add-lending-form" value="1" placeholder="1" min="1" name="count" required type="number"><br/>
+    <label for="premium">(Max) Premium</label><input aria-label="Premium Percentage" id="premium" class="text-input interactive"
+           form="add-lending-form" min="0" max="100" name="premium" value="0" type="number" step=".01"><br/>
+
+    <button aria-label="Lend" class="submit interactive" form="add-lending-form" type="submit"
+            name="action" value="Lend">Lend
+    </button><button aria-label="Offer" class="submit interactive" form="add-lending-form" type="submit"
+            name="action" value="Offer">Offer
+    </button>
+</div>
+<div class="content-table">
+    <h2>Your Offers</h2>
+    <div class="table orders-table" style="grid-template-rows: 1fr 0.1em repeat({rows}, 1fr) [last-line]">
+        <span class="head">Symbol</span>
+        <span class="head">Premium</span>
+        <span class="head">Count</span>
+        <div></div>
+        <div></div>
+        <div></div>
+        {lendings}
+    </div>
 </div>
 <div class="footer" id="disclaimer"><sup>1</sup>Not endorsed by UBC.</div>
 <div class="data">
