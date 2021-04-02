@@ -37,3 +37,7 @@ order = """            <span><a href="symbols.py?{symbol_url}">{symbol}</a></spa
             <span><button aria-label="delete-{id}" form="delete-order-form" type="submit"
             name="delete" value="{id}">Delete</button></span>
 """
+order = """            <span><a href="symbols.py?{symbol_url}">{symbol}</a></span>
+            <span>{premium}%</span>
+            <span>{count}</span>
+"""
