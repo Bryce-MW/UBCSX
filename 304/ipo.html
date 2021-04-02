@@ -33,16 +33,21 @@
 </header>
 <div class="hrule"></div>
 <div class="content">
-    <div class="center-card">
+    <div class="center-card par">
         <form class="center-card" id="create-ipo-form" method="POST"></form>
         Hello {user},<br/>
         Congratulations on your IPO!<br/>
         <label for="ipo-name">Name:</label>
-        <input aria-label="Name" id="ipo-name" autocomplete="off" class="text-input full-length interactive" form="create-ipo-form" maxlength="255" minlength="1" name="ipo-name" placeholder="Apple, Inc." required type="text"><br/>
+        <input aria-label="Name" id="ipo-name" autocomplete="off" class="text-input full-length interactive"
+               form="create-ipo-form" maxlength="255" minlength="1" name="ipo-name" placeholder="Apple, Inc." required
+               type="text"><br/>
         <label for="ipo-symbol">Symbol:</label>
-        <input aria-label="Symbol" id="ipo-symbol" autocomplete="off" class="text-input full-length interactive" form="create-ipo-form" maxlength="16" minlength="1" name="ipo-symbol" placeholder="AAPL" required type="text" style="text-transform:uppercase" pattern="[A-Za-z]+"><br/>
+        <input aria-label="Symbol" id="ipo-symbol" autocomplete="off" class="text-input full-length interactive"
+               form="create-ipo-form" maxlength="16" minlength="1" name="ipo-symbol" placeholder="AAPL" required
+               type="text" style="text-transform:uppercase" pattern="[A-Za-z]+"><br/>
         Are you creating a company or ETF?<br/>
-        <select aria-label="ipo-type" id="ipo-type" class="select full-length interactive" form="create-ipo-form" name="type" required>
+        <select aria-label="ipo-type" id="ipo-type" class="select full-length interactive" form="create-ipo-form"
+                name="type" required>
             <option value="Company">Company</option>
             <option value="ETF">ETF</option>
         </select>
