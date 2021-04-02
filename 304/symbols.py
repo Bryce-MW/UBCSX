@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 from datetime import datetime
-from ubcsx import script_html, names, symbols, current_page, params, escape, cursor, dollar, urlencode, format_ba
+from ubcsx import script_html, names, symbols, current_page, params, escape, cursor, dollar, urlencode, format_ba, dollar
 from templates import symbol_order
 
 symbol = escape(params["symbol"][0]) if "symbol" in params else ""
@@ -40,12 +40,15 @@ if symbol:
         cursor.execute("SELECT ceo_quote FROM ceos WHERE ceo=%s", (ceo,))
         res = cursor.fetchone()
         if res:
-            quote = escape(res["ceo_quote"])
+            if res["ceo_quote"] is not None:
+                quote = escape(res["ceo_quote"])
     else:
         cursor.execute("SELECT ceo_quote, ceos.ceo AS ceo FROM ceos INNER JOIN stocks ON ceos.ceo=stocks.ceo WHERE symbol=%s", (symbol,))
         res = cursor.fetchone()
         ceo = escape(res["ceo"])
-        quote = escape(res["ceo_quote"])
+
+        if res["ceo_quote"] is not None:
+            quote = escape(res["ceo_quote"])
 
     if not checked or etf:
         cursor.execute("""
@@ -79,10 +82,10 @@ if symbol:
                 (SELECT min(price) AS ask, symbol FROM `limit` INNER JOIN orders ON `limit`.order_id=orders.id WHERE orders.quantity<0 AND EXISTS (SELECT 1 FROM option_order WHERE option_order.order_id=orders.id AND option_order.strike_price=%(strike)s AND option_order.expiration=%(expr)s) GROUP BY symbol) AS ask_table
             ON bid_table.symbol=ask_table.symbol
             WHERE ask_table.symbol=%(symbol)s
-                    """, {"symbol":symbol, "strike":strike, "expr":expiry})
+                    """, {"symbol":symbol, "strike":int(float(strike)*dollar), "expr":expiry})
         res = cursor.fetchone()
         if res:
-            last_price = format_ba(res['ask'] - res['bid'] if res['res'] and res['bid'] else None)
+            last_price = format_ba(((res['ask'] - res['bid']) / 2) + res['bid'] if res['ask'] and res['bid'] else None)
             cursor.execute("""SELECT COUNT(*) AS count FROM shares WHERE symbol=%(symbol)s UNION SELECT SUM(units) AS count FROM owns WHERE symbol=%(symbol)s""", {"symbol":symbol})
             shares = cursor.fetchone()["count"] or 0
             cursor.execute("SELECT COUNT(*) AS count FROM lent WHERE symbol=%s", (symbol,))
@@ -123,7 +126,8 @@ if symbol:
                 rows += 1
                 orders += symbol_order.format(type="Limit" if row["is_limit"] else "Stop" if row["is_stop"] else "Market", buy_sell="Sell" if row["is_sell"] else "Buy", limit=format_ba(row["stop_price"] if row["stop_price"] else row["limit_price"]), count=-row["count"] if row["is_sell"] else row["count"])
                 if not found_sell and row['is_sell']:
-                    buy_end = rows
+                    found_sell = True
+                    buy_end = rows - 1
             orders = orders[12:]
         else:
             cursor.execute("""
@@ -137,7 +141,8 @@ if symbol:
                 FROM orders
                     LEFT JOIN `limit` ON orders.id=`limit`.order_id
                     LEFT JOIN stop ON orders.id=stop.order_id
-                WHERE symbol=%(symbol)s AND EXISTS (SELECT 1 FROM option_order WHERE option_order.order_id=orders.id AND option_order.strike_price=%(strike)s AND option_order.expiration=%(expr)s)
+                    INNER JOIN option_order ON option_order.order_id=orders.id
+                WHERE symbol=%(symbol)s AND option_order.strike_price=%(strike)s AND option_order.expiration=%(expr)s
                 GROUP BY
                     is_sell,
                     is_limit,
@@ -149,13 +154,14 @@ if symbol:
                     IFNULL(stop.price, `limit`.price) ASC,
                     is_limit ASC,
                     is_stop ASC
-                """, {"symbol":symbol, "strike":strike, "expr":expiry})
+                """, {"symbol":symbol, "strike":int(float(strike)*dollar), "expr":expiry})
             found_sell = False
             for row in cursor:
                 rows += 1
                 orders += symbol_order.format(type="Limit" if row["is_limit"] else "Stop" if row["is_stop"] else "Market", buy_sell="Sell" if row["is_sell"] else "Buy", limit=format_ba(row["stop_price"] if row["stop_price"] else row["limit_price"]), count=-row["count"] if row["is_sell"] else row["count"])
                 if not found_sell and row['is_sell']:
-                    buy_end = rows
+                    found_sell = True
+                    buy_end = rows - 1
             orders = orders[12:]
 
 

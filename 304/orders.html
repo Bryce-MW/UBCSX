@@ -12,8 +12,7 @@
 </head>
 <body>
 <header class="header">
-    <h1 class="title">UBC<sup><a href="#disclaimer" tabindex="1">1</a></sup><sup class="invisible">1</sup> Stock
-        Exchange</h1>
+    <h1 class="title"><a href="main.py?all">UBC Stock Exchange</a><sup><a href="#disclaimer" tabindex="1">1</a></sup><sup class="invisible">1</sup></h1>
     <nav>
         <ul>
             <li class="header-item"><!--suppress HtmlUnknownAnchorTarget -->
@@ -55,7 +54,7 @@
            form="add-order-form" name="expiry" required type="datetime-local"><br/>
     <label for="strike">Strike Price</label><input aria-label="Strike Price" id="strike" class="text-input interactive"
            form="add-order-form" min="0" name="strike_price" value="0" type="number" step=".01"><br/>
-  
+
     <button aria-label="Buy" class="submit interactive" form="add-order-form" type="submit"
             name="action" value="Buy">Buy
     </button><button aria-label="Sell" class="submit interactive" form="add-order-form" type="submit"

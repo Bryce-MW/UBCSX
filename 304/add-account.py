@@ -19,7 +19,7 @@ else:
     acc = cursor.fetchone()
 
     if acc is not None:
-        redirect("main.py", "An account with that name already exists.")
+        redirect("main.py?all", "An account with that name already exists.")
         exit()
 
     cursor.execute("INSERT INTO owners (owner, owner_name) VALUES (%(user)s, %(owner_name)s) ON DUPLICATE KEY UPDATE owner_name=%(owner_name)s", {"user": user, "owner_name": owner_name})

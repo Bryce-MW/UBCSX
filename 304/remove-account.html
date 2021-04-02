@@ -12,8 +12,7 @@
 </head>
 <body>
 <header class="header">
-    <h1 class="title">UBC<sup><a href="#disclaimer" tabindex="1">1</a></sup><sup class="invisible">1</sup> Stock
-        Exchange</h1>
+    <h1 class="title"><a href="main.py?all">UBC Stock Exchange</a><sup><a href="#disclaimer" tabindex="1">1</a></sup><sup class="invisible">1</sup></h1>
     <nav>
         <ul>
             <li class="header-item"><!--suppress HtmlUnknownAnchorTarget -->
@@ -37,7 +36,7 @@
         <form class="center-card" id="remove-account-form" method="POST"></form>
         Hello {user},<br/>
         Select an account to remove.<br/>
-        <select aria-label="Select account to remove" class="text-input full-length interactive"
+        <select aria-label="Select account to remove" class="select full-length interactive"
                 form="remove-account-form" name="account_name" required>
             {accounts_html}
         </select>

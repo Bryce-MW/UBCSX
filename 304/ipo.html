@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-CA">
+
 <head>
     <meta charset="UTF-8">
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
@@ -10,21 +11,20 @@
     <link href="ubcsx.css" rel="stylesheet">
     <link href="https://code.cdn.mozilla.net/fonts/fira.css" rel="stylesheet">
 </head>
+
 <body>
 <header class="header">
-    <h1 class="title">UBC<sup><a href="#disclaimer" tabindex="1">1</a></sup><sup class="invisible">1</sup> Stock
-        Exchange</h1>
+    <h1 class="title"><a href="main.py?all">UBC Stock Exchange</a><sup><a href="#disclaimer" tabindex="1">1</a></sup><sup class="invisible">1</sup></h1>
     <nav>
         <ul>
-            <li class="header-item"><!--suppress HtmlUnknownAnchorTarget -->
+            <li class="header-item">
+                <!--suppress HtmlUnknownAnchorTarget -->
                 <a href="info.py#{current_page}" tabindex="2">Info</a></li>
             <li class="header-item"><a href="settings.py" tabindex="3">Settings</a></li>
             <li class="header-search">
                 <form action="search.py" id="search-bar" method="GET"></form>
                 <div class="search-bar">
-                    <input aria-label="Search" autocomplete="off" class="search-bar" form="search-bar"
-                           list="symbols-names"
-                           name="q" placeholder="Symbol / Name" type="search"/>
+                    <input aria-label="Search" autocomplete="off" class="search-bar" form="search-bar" list="symbols-names" name="q" placeholder="Symbol / Name" type="search"/>
                     <button aria-label="Submit Search" class="search-button" form="search-bar"></button>
                 </div>
             </li>
@@ -33,6 +33,38 @@
 </header>
 <div class="hrule"></div>
 <div class="content">
+    <div class="center-card">
+        <form class="center-card" id="create-ipo-form" method="POST"></form>
+        Hello {user},<br/>
+        Congratulations on your IPO!<br/>
+        <label for="ipo-name">Name:</label>
+        <input aria-label="Name" id="ipo-name" autocomplete="off" class="text-input full-length interactive" form="create-ipo-form" maxlength="255" minlength="1" name="ipo-name" placeholder="Apple, Inc." required type="text"><br/>
+        <label for="ipo-symbol">Symbol:</label>
+        <input aria-label="Symbol" id="ipo-symbol" autocomplete="off" class="text-input full-length interactive" form="create-ipo-form" maxlength="16" minlength="1" name="ipo-symbol" placeholder="AAPL" required type="text" style="text-transform:uppercase" pattern="[A-Za-z]+"><br/>
+        Are you creating a company or ETF?<br/>
+        <select aria-label="ipo-type" id="ipo-type" class="select full-length interactive" form="create-ipo-form" name="type" required>
+            <option value="Company">Company</option>
+            <option value="ETF">ETF</option>
+        </select>
+        <div id="shares">
+            How many shares would you like to create?<br/>
+            <input aria-label="Shares" autocomplete="off" class="number-input full-length interactive" form="create-ipo-form" name="ipo-shares" required type="number" min="0" max="5000" value="0"><br/>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {{
+                $("#ipo-type").change(function () {{
+                    if ($(this).val() === "Company") {{
+                        $("#shares").show();
+                    }} else {{
+                        $("#shares").hide();
+                    }}
+                }});
+            }});
+        </script>
+        <button aria-label="Submit" class="submit br-submit interactive" form="create-ipo-form" type="submit" value="Submit">Submit
+        </button>
+    </div>
 </div>
 <div class="footer" id="disclaimer"><sup>1</sup>Not endorsed by UBC.</div>
 <div class="data">
@@ -42,4 +74,5 @@
     </datalist>
 </div>
 </body>
+
 </html>
