@@ -3,12 +3,15 @@ from templates import lending
 from ubcsx import script_html, cursor, names, symbols, current_page, params, unescape, post, user, escape, urlencode, \
     dollar, redirect
 
+default_symbol = ""
 lendings = ""
 rows = 0
 
 if "account" in params:
     account_name = unescape(params["account"][0])
     cursor.execute("SELECT id FROM accounts WHERE owner=%s AND account_name=%s", (user, account_name))
+    if 'symbol' in params:
+        default_symbol = params["symbol"][0]
     account_id = cursor.fetchone()["id"]
     if not post:
         offers = []
